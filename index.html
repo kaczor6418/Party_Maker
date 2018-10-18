@@ -1,0 +1,105 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title> Party Maker </title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <header class=".pageHeader">
+            <a lass=".pageHeader__logo" href="index.html" title="go back home">
+                <img src="img/svg/logo.svg">
+            </a>
+            <div class=".pageHeader__login">
+                <form class=".login">
+                    <table cellspacing="0" role="presentation">
+                        <tbody class=".login__fields" >
+                            <tr class=".login__fields--titleFields">
+                                <td class="mainField">
+                                    <label for="email">Username or email address</label>
+                                </td>
+                                <td class="mainField">
+                                    <label for="pass">Password</label>
+                                </td>
+                            </tr>
+                            <tr class=".login__fields--inputFields">
+                                <td class="field">
+                                    <input type="text" class="inputtext" name="user" id="user" tabindex="1" data-error="Please fill field">
+                                </td>
+                                <td class="field">
+                                    <input type="password" class="inputtext" name="pass" id="pass" tabindex="2" data-error="Please fill field">
+                                </td>
+                                <td class="field">
+                                    <label class="button" id="loginButton">
+                                        <input value="Login" aria-label="Login" tabindex="4" type="submit">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr class=".login__fields--other">
+                                <td class="field"></td>
+                                <td class="field">
+                                    <div>
+                                        <a href="#">Forgot password?</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </header>
+        <main>
+            <section class="sectionHeader">
+                <div class="sectionHeader__slider">
+                    <div class="sectionHeader__slider--prev scrollButton"></div>
+                    <div class="sectionHeader__slider--photos">
+                        <img src="img/jpg/slider1.jpg">
+                    </div>
+                    <div class="sectionHeader__slider--next scrollButton"></div>
+                </div>
+                <div class="sectionHeader__appDescription">
+                    <div class="sectionHeader__appDescription--joinUS">
+                        <h3>Join Us</h3>
+                            <label class="button" id="loginButton">
+                                <input value="SingIn" aria-label="Sing in" type="submit">
+                            </label>
+                    </div>
+                    <aside class="sectionHeader__appDescription--aboutApp">
+                        <p>
+
+                        </p>
+                    </aside>
+                </div>
+            </section>
+        </main>
+        <footer class=".footer">
+            <div>
+                <div class=".footer__authors">
+                    <ul>
+                        <li>Krzysztof Kaczynski</li>
+                        <li>Maciej Nowacki</li>
+                        <li>Bartosz Kowalewski</li>
+                        <li>Szymon Zgoła</li>
+                    </ul>
+                </div>
+                <div class=".footer__socialMedia">
+                    <a href="#"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#"><i class="fab fa-github fa-lg"></i></a>
+                    <a href="#"><i class="fab fa-youtube fa-lg"></i></a>
+                </div>
+            </div>
+        </footer>
+    </body>
+
+</html>
+
+
