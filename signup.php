@@ -14,7 +14,7 @@ if(isset($_POST["add_new"]))
     $birth = $_POST["birdt"];
     $username = $_POST["user"];
     $password = $_POST["pass"];
-    $user->singIn($name, $surname, $email, $birth, $username, $password);
+    $user->signUp($name, $surname, $email, $birth, $username, $password);
     $_POST = array();
 }
 
@@ -83,7 +83,7 @@ if(isset($_SESSION['error']))
                             <td class=".field"></td>
                             <td class=".field">
                                 <label class=".button" id="singInButton">
-                                    <input value="Sing in" aria-label="singIn" tabindex="3" type="submit" name="add_new">
+                                    <input value="SIGN UP" aria-label="signUp" tabindex="3" type="submit" name="add_new">
                                 </label>
                             </td>
                         </tr>
