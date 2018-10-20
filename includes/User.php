@@ -1,4 +1,11 @@
 <?php
+function isDate($string) {
+    $matches = array();
+    $pattern = '/^([0-9]{1,2})\\/([0-9]{1,2})\\/([0-9]{4})$/';
+    if (!preg_match($pattern, $string, $matches)) return false;
+    if (!checkdate($matches[2], $matches[1], $matches[3])) return false;
+    return true;
+}
 
 class User
 {
@@ -14,11 +21,15 @@ class User
 		return isset($_SESSION["user_id"]);
 	}
 
-	public function singIn($name, $surname, $email, $birth, $username, $password)
+	public function signUp($name, $surname, $email, $birth, $username, $password)
 	{
 		if(empty($name) || empty($surname) || empty($email) || empty($birth) || empty($username) || empty($password))
 		{
 			$_SESSION['error'] = 'Wypełnij wszystkie pola!<br>';
+		}
+		else if(!isDate($birth))
+		{
+			$_SESSION['error'] = 'Podałeś niepoprawną datę. Format: DD/MM/RRRR<br>';
 		}
 		else if(strlen($name) < 3 || strlen($surname) < 3)
 		{
@@ -38,7 +49,7 @@ class User
 		}
 		else
 		{
-			$statement = $this->connect->prepare('SELECT id FROM users WHERE login = ?');
+			$statement = $this->connect->prepare('SELECT user_id FROM users WHERE login = ?');
 			$statement->bind_param('s', $username);
 			$statement->execute();
 			$result = $statement->get_result();
@@ -50,14 +61,16 @@ class User
 				}
 				else
 				{
-					$statement = $this->connect->prepare("INSERT INTO `users` (`id`, `login`, `password`) VALUES (NULL, ?, ?)");
+					//INSERT INTO `users` (`user_id`, `login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `lastSuccessfulLogin`, `attempts`, `lastUnsuccessfulLogin`, `lastActive`) VALUES (NULL, 'test', 'test', 'test', 'test', 'test', '', '', '', '', '');
+					$statement = $this->connect->prepare("INSERT INTO `users` (`login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `email`) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%m/%d/%Y'), NOW(), ?)");
 					$passhash = password_hash($password, PASSWORD_DEFAULT);
-					$statement->bind_param('ss', $username, $passhash);
+					$statement->bind_param('ssssss', $username, $passhash, $name, $surname, $birth, $email);
 					$statement->execute();
 					$result = $statement->get_result();
 					if($result)
 					{
 						$_SESSION['error'] = 'Twoje konto zostało utworzone. Zaloguj się!<br>';
+						header('Location: http://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
 					}
 				}
 			}
@@ -72,7 +85,7 @@ class User
 		}
 		else
 		{
-			$statement = $this->connect->prepare('SELECT id, password FROM users WHERE login = ?');
+			$statement = $this->connect->prepare('SELECT user_id, password, attempts, lastUnsuccessfulLogin FROM users WHERE login = ?');
 			$statement->bind_param('s', $login);
 			$statement->execute();
 			$result = $statement->get_result();
@@ -85,14 +98,24 @@ class User
 				else
 				{
 					$usernameData = $result->fetch_assoc();
-
-					if(password_verify($passwordword, $usernameData["password"]))
+					if($usernameData["attempts"] > 3 && strtotime($usernameData["lastUnsuccessfulLogin"]) + 300>= time()) //300 sekund - czas dodatkowy, aby uniknąć brute force
 					{
-						$_SESSION["user_id"] = $usernameData["id"];
+						$_SESSION['error'] = 'Próbowałeś zalogować się zbyt wiele razy. Spróbuj ponownie za 5 minut.<br>';
+					}
+					else if(password_verify($passwordword, $usernameData["password"]))
+					{
+						$_SESSION["user_id"] = $usernameData["user_id"];
+						$statement = $this->connect->prepare('UPDATE `users` SET lastSuccessfulLogin = NOW(), attempts = 0 WHERE login = ?');
+						$statement->bind_param('s', $login);
+						$statement->execute();
 					}
 					else
 					{
+						//INSERT INTO `users` (`user_id`, `login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `lastSuccessfulLogin`, `attempts`, `lastUnsuccessfulLogin`, `lastActive`) VALUES (NULL, 'test', 'test', 'test', 'test', 'test', '', '', '', '', '');
 						$_SESSION['error'] = 'Błędny login lub hasło!<br>';
+						$statement = $this->connect->prepare('UPDATE `users` SET lastUnsuccessfulLogin = NOW(), attempts = attempts + 1 WHERE login = ?');
+						$statement->bind_param('s', $login);
+						$statement->execute();
 					}
 				}
 			}
