@@ -14,9 +14,59 @@ class User
 		return isset($_SESSION["user_id"]);
 	}
 
-	public function logIn($login, $password)
+	public function singIn($name, $surname, $email, $birth, $username, $password)
 	{
-		if(empty($login) || empty($password))
+		if(empty($name) || empty($surname) || empty($email) || empty($birth) || empty($username) || empty($password))
+		{
+			$_SESSION['error'] = 'Wypełnij wszystkie pola!<br>';
+		}
+		else if(strlen($name) < 3 || strlen($surname) < 3)
+		{
+			$_SESSION['error'] = 'Twoje imię i nazwisko nie mogą mieć mniej niż 3 znaki.<br>';
+		}
+		else if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+		{
+			$_SESSION['error'] = 'Podaj poprawny email.<br>';
+		}
+		else if(strlen($username) < 3)
+		{
+			$_SESSION['error'] = 'Nazwa użytkownika nie może być krótsza niż 3 znaki.<br>';
+		}
+		else if(strlen($password) < 8)
+		{
+			$_SESSION['error'] = 'Twoje hasło musi mieć minimum 8 znaków!<br>';
+		}
+		else
+		{
+			$statement = $this->connect->prepare('SELECT id FROM users WHERE login = ?');
+			$statement->bind_param('s', $username);
+			$statement->execute();
+			$result = $statement->get_result();
+			if($result)
+			{
+				if($result->num_rows)
+				{
+					$_SESSION['error'] = 'Taki użytkownik istnieje w naszym systemie. Zaloguj się!<br>';
+				}
+				else
+				{
+					$statement = $this->connect->prepare("INSERT INTO `users` (`id`, `login`, `password`) VALUES (NULL, ?, ?)");
+					$passhash = password_hash($password, PASSWORD_DEFAULT);
+					$statement->bind_param('ss', $username, $passhash);
+					$statement->execute();
+					$result = $statement->get_result();
+					if($result)
+					{
+						$_SESSION['error'] = 'Twoje konto zostało utworzone. Zaloguj się!<br>';
+					}
+				}
+			}
+		}
+	}
+
+	public function logIn($login, $passwordword)
+	{
+		if(empty($login) || empty($passwordword))
 		{
 			$_SESSION['error'] = 'Wypełnij wszystkie pola!<br>';
 		}
@@ -34,11 +84,11 @@ class User
 				}
 				else
 				{
-					$userData = $result->fetch_assoc();
+					$usernameData = $result->fetch_assoc();
 
-					if(password_verify($password, $userData["password"]))
+					if(password_verify($passwordword, $usernameData["password"]))
 					{
-						$_SESSION["user_id"] = $userData["id"];
+						$_SESSION["user_id"] = $usernameData["id"];
 					}
 					else
 					{

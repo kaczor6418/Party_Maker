@@ -17,4 +17,3 @@
             <a class=".pageHeader__logo" href="index.html" title="go back home">
                 <img src="img/svg/logo.svg">
             </a>
-        </header>
