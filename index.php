@@ -4,7 +4,7 @@ require "includes/header.php";
 ?>
 <div class=".pageHeader__login">
 <?php
-if(isset($_POST["add_new"]))
+if(isset($_POST["logInUser"]))
 {
     $login = $_POST["login"];
     $password = $_POST["password"];
@@ -12,11 +12,11 @@ if(isset($_POST["add_new"]))
     $_POST = array();
 }
 
-if(isset($_SESSION['error']))
+/*if(isset($_SESSION['error']))
 {
     echo $_SESSION['error'];
-    unset($_SESSION['error']);
-}
+    unset($_SESSION['error']); //trzeba znaleźć miejsce na to xd
+}*/
 
 if(isset($_POST["logout"]))
 {
@@ -47,7 +47,7 @@ if(!$user->isLogged())
                 </td>
                 <td class=".field">
                     <label class=".button" id="loginButton">
-                        <input value="Login" aria-label="login" tabindex="4" type="submit" name="add_new">
+                        <input value="Login" aria-label="login" tabindex="4" type="submit" name="logInUser">
                     </label>
                 </td>
             </tr>
