@@ -16,6 +16,31 @@ class User
 		$this->connect = $connect;
 	}
 
+	public function data($idUserToGet = null)
+    {
+        if ($idUserToGet == null)
+        {
+        	if(isset($_SESSION['user_id']))
+        	{
+        		$idUserToGet = $_SESSION['user_id'];
+        		$statement = $this->connect->prepare('UPDATE `users` SET lastActive = NOW() WHERE user_id = ?');
+				$statement->bind_param('i', $idUserToGet);
+				$statement->execute();
+        	}
+        	else
+        	{
+        		echo "Użytkownik nie jest zalogowany!";
+        	}
+        }
+    	$statement = $this->connect->prepare('SELECT user_id, login, name, surname, birthDate, regDate, lastSuccessfulLogin, attempts, lastUnsuccessfulLogin, lastActive, email FROM users WHERE user_id = ?');
+		$statement->bind_param('i', $idUserToGet);
+		if($statement->execute())
+		{
+			$result = $statement->get_result();
+			return $result->fetch_assoc();
+		}
+    }
+
 	public function isLogged()
 	{
 		return isset($_SESSION["user_id"]);
@@ -51,10 +76,9 @@ class User
 		{
 			$statement = $this->connect->prepare('SELECT user_id FROM users WHERE login = ?');
 			$statement->bind_param('s', $username);
-			$statement->execute();
-			$result = $statement->get_result();
-			if($result)
+			if($statement->execute())
 			{
+				$result = $statement->get_result();
 				if($result->num_rows)
 				{
 					$_SESSION['error'] = 'Taki użytkownik istnieje w naszym systemie. Zaloguj się!<br>';
@@ -65,12 +89,10 @@ class User
 					$statement = $this->connect->prepare("INSERT INTO `users` (`login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `email`) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%m/%d/%Y'), NOW(), ?)");
 					$passhash = password_hash($password, PASSWORD_DEFAULT);
 					$statement->bind_param('ssssss', $username, $passhash, $name, $surname, $birth, $email);
-					$statement->execute();
-					$result = $statement->get_result();
-					if($result)
+					if($statement->execute())
 					{
-						$_SESSION['error'] = 'Twoje konto zostało utworzone. Zaloguj się!<br>';
-						header('Location: http://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
+						$_SESSION['error'] = 'Twoje konto zostało utworzone. Zaloguj się!<br>'; //narazie nigdzie się nie wyświetla, bo usuwa się zawartość chwilę przed przekierowaniem (rendering strony signup.php)
+						header('Location: http://'.$_SERVER["HTTP_HOST"]);
 					}
 				}
 			}
@@ -87,10 +109,9 @@ class User
 		{
 			$statement = $this->connect->prepare('SELECT user_id, password, attempts, lastUnsuccessfulLogin FROM users WHERE login = ?');
 			$statement->bind_param('s', $login);
-			$statement->execute();
-			$result = $statement->get_result();
-			if($result)
+			if($statement->execute())
 			{
+				$result = $statement->get_result();
 				if(!$result->num_rows)
 				{
 					$_SESSION['error'] = 'Taki użytkownik nie istnieje w naszym systemie. Zarejestruj się!<br>';

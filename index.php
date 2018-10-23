@@ -66,7 +66,8 @@ require "includes/header.php";
     }
     else
     {
-        echo "Zalogowany!";
+        $profile = $user->data();
+        echo "Witaj ".$profile['login']."!";
         echo "<form action='' method='post'><input type='submit' value='WYLOGUJ!'' name='logout'></form>";
     }
     ?>
