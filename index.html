@@ -6,95 +6,124 @@
         <meta charset="utf-8">
         <title> Party Maker </title>
         <meta name="description" content="">
-        <meta name="keywords" content="">
+        <meta name="keywords" content="Event, Events, Eventmaker, Make new activities, Activities for children, Activities for family, Activities for elderly, Activities for athletes, Cultural events, Sports events, Music events ,Art events, Education event, Business event, Company events, Party event, Entertainment, Show, Concert, Culture Ceremony, Newest spectacles, Premiere, First Night, Saturday event, Sunday event, Free weekend, Free time, Bored, Nothing to do, Attractions, Attractions in my city, World event , Meeting, Meet up, Meeting with friends, Meeting new people, Scientific meetings">
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+        <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700&amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
     </head>
 
     <body>
-        <header class=".pageHeader">
-            <a class=".pageHeader__logo" href="index.html" title="go back home">
-                <img src="img/svg/logo.svg">
-            </a>
-            <div class=".pageHeader__login">
-                <form class=".login">
-                    <table cellspacing="0" role="presentation">
-                        <tbody class=".login__fields" >
-                            <tr class=".login__fields--titleFields">
-                                <td class=".mainField">
-                                    <label for="email">Username or email address</label>
-                                </td>
-                                <td class=".mainField">
-                                    <label for="pass">Password</label>
-                                </td>
+        <header class="pageHeader">
+            <div class="pageHeader__panel">
+                <a class="pageHeader__panel--logo" href="index.html" title="go back home">
+                    <img class="logo" src="img/png/logo.png">
+                </a>
+                <div class="pageHeader__panel--login">
+                    <form class="login">
+                        <table cellspacing="0" role="presentation">
+                            <tbody class="login__fields" >
+                                <tr class="login__fields--titleFields row">
+                                    <td class="field">
+                                        <label>Username or</label>
+                                        <br/>
+                                        <label>address email</label>
+                                    </td>
+                                    <td class="field">
+                                        <label for="pass">Password</label>
+                                    </td>
+                                </tr>
+                                <tr class="login__fields--inputFields row">
+                                    <td class="field">
+                                        <input type="text" class="inputtext" name="user" id="user" tabindex="1" data-error="Please fill field">
+                                    </td>
+                                    <td class="field">
+                                        <input type="password" class="inputtext" name="pass" id="pass" tabindex="2" data-error="Please fill field">
+                                    </td>
+                                    <td class="field">
+                                            <input class="button submitButton" value="Login" aria-label="login" tabindex="4" type="submit">
+                                    </td>
+                                </tr>
+                                <tr class="login__fields--other row">
+                                    <td class="field"></td>
+                                    <td class="field">
+                                        <div>
+                                            <a href="#"><b>Forgot password?</b></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <main class="main">
+            <section class="sectionHeader">
+                    <div class="sectionHeader__slider">
+                        <div class="sectionHeader__slider--prev scrollButton"><br>&#9664;</div>
+                        <picture class="sectionHeader__slider--photos">
+                            <img src="img/jpg/slider1.jpg">
+                        </picture>
+                        <div class="sectionHeader__slider--next scrollButton"><br>&#9654;</div>
+                    </div>
+                    <div class="sectionHeader__appDescription">
+                        <div class="sectionHeader__appDescription--joinUS">
+                            <h2>Join Us</h2>
+                                <label id="singUp">
+                                    <a href="singUp.html">
+                                        <input class="singUpButton button " value="Sing up" aria-label="signUp" type="submit">
+                                    </a>
+                                </label>
+                        </div>
+                        <aside class="sectionHeader__appDescription--aboutApp">
+                            <p>
+                                Are you looking for interesting events in your city? Or maybe you are a organizer, who wants to promote a new event? Our goal is to gather and present you the most interesting of them. Event Maker is a free application that allows you to find or organize new cultural events or to book tickets for the next match of your favourite sports team. If you don’t have an idea for the weekend free time, take a look at our website and check out what is noteworthy in your local area. See ya on the next event!
+                            </p>
+                        </aside>
+                    </div>
+            </section>
+        </main>
+        <footer class="footer">
+            <div class="footer__block">
+                <div class="footer__block--authors">
+                    <h3>Developers :</h3>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><a href="#"><i class="fab fa-js-square"></i></a></td>
+                                <td><a href="#">Krzysztof Kaczynski</a></td>
+                                <td><a href="#"><i class="fab fa-php"></i></a></td>
+                                <td><a href="#">Maciej Nowacki</a></td>
                             </tr>
-                            <tr class=".login__fields--inputFields">
-                                <td class=".field">
-                                    <input type="text" class=".inputtext" name="user" id="user" tabindex="1" data-error="Please fill field">
-                                </td>
-                                <td class=".field">
-                                    <input type="password" class=".inputtext" name="pass" id="pass" tabindex="2" data-error="Please fill field">
-                                </td>
-                                <td class=".field">
-                                    <label class=".button" id="loginButton">
-                                        <input value="Login" aria-label="login" tabindex="4" type="submit">
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr class=".login__fields--other">
-                                <td class=".field"></td>
-                                <td class=".field">
-                                    <div>
-                                        <a href="#">Forgot password?</a>
-                                    </div>
-                                </td>
+                            <tr>
+                                <td><a href="#"><i class="fab fa-php"></i></a></td>
+                                <td><a href="#">Bartosz Kowalewski</a></td>
+                                <td><a href="#"><i class="fas fa-database"></i></a></i></td>
+                                <td><a href="#">Szymon Zgoła</a></td>
                             </tr>
                         </tbody>
                     </table>
-                </form>
-            </div>
-        </header>
-        <main>
-            <section class=".sectionHeader">
-                <div class=".sectionHeader__slider">
-                    <div class=".sectionHeader__slider--prev scrollButton"></div>
-                    <div class=".sectionHeader__slider--photos">
-                        <img src="img/jpg/slider1.jpg">
-                    </div>
-                    <div class=".sectionHeader__slider--next scrollButton"></div>
                 </div>
-                <div class=".sectionHeader__appDescription">
-                    <div class=".sectionHeader__appDescription--joinUS">
-                        <h3>Join Us</h3>
-                            <label class=".button" id="loginButton">
-                                <input value="Sing in" aria-label="singIn" type="submit">
-                            </label>
-                    </div>
-                    <aside class=".sectionHeader__appDescription--aboutApp">
-                        <p>
-
-                        </p>
-                    </aside>
+                <div class="footer__block--logo">
+                    <a href="index.html" title="go back home">
+                        <img class="logo" src="img/png/logo.png">
+                    </a>
                 </div>
-            </section>
-        </main>
-        <footer class=".footer">
-            <div>
-                <div class=".footer__authors">
-                    <ul>
-                        <li>Krzysztof Kaczynski</li>
-                        <li>Maciej Nowacki</li>
-                        <li>Bartosz Kowalewski</li>
-                        <li>Szymon Zgoła</li>
-                    </ul>
-                </div>
-                <div class=".footer__socialMedia">
-                    <a href="#"><i class="fab fa-facebook-f fa-lg"></i></a>
-                    <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
-                    <a href="#"><i class="fab fa-github fa-lg"></i></a>
-                    <a href="#"><i class="fab fa-youtube fa-lg"></i></a>
+                <div class="footer__block--socialMedia">
+                    <h3>Social media :</h3>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><a href="#"><i class="fab fa-facebook-f fa-2x"></i></a></td>
+                                <td><a href="#"><i class="fab fa-twitter fa-2x"></i></a></td>
+                                <td><a href="#"><i class="fab fa-github fa-2x"></i></a></td>
+                                <td><a href="#"><i class="fab fa-youtube fa-2x"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </footer>
