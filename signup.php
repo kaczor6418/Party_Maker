@@ -24,6 +24,7 @@ if(isset($_SESSION['error']))
     unset($_SESSION['error']); //trzeba znaleźć miejsce na to xd
 }
 ?>
+<main>
     <section class=".singIn">
         <div class=".singIn__form">
             <form class=".singIn" action="" method="post">
@@ -83,7 +84,7 @@ if(isset($_SESSION['error']))
                             <td class=".field"></td>
                             <td class=".field">
                                 <label class=".button" id="singInButton">
-                                    <input value="SIGN UP" aria-label="signUp" tabindex="3" type="submit" name="add_new">
+                                    <input value="Sing in" aria-label="singIn" tabindex="3" type="submit" name="add_new">
                                 </label>
                             </td>
                         </tr>
