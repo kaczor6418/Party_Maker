@@ -11,12 +11,13 @@
         <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700&amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet"href="css/signUp.css">
     </head>
 
     <body>
-        <main>
+        <main class="mainBackground">
             <section class="signUp">
-                <div class="signUp__whole">
+                <div class="signUp__wrap">
                     <form class="signUp__form">
                         <table cellspacing="0" role="presentation">
                             <tbody class="form__fields" >
@@ -46,10 +47,10 @@
                                 </tr>
                                 <tr class="form__fields--inputFields">
                                     <td class="field">
-                                        <input type="email" class="inputtext" name="email" id="email" tabindex="1" data-error="Please give your email!">
+                                        <input type="email" class="inputtext" name="email" id="email" tabindex="3" data-error="Please give your email!">
                                     </td>
                                     <td class="field">
-                                        <input type="text" class="inputtext" name="birdt" id="birdt" tabindex="2" data-error="Please give your birth date!">
+                                        <input type="text" class="inputtext" name="birdt" id="birdt" tabindex="4" data-error="Please give your birth date!">
                                     </td>
                                 </tr>
                                 <tr class="form__fields--titleFields">
@@ -62,34 +63,29 @@
                                 </tr>
                                 <tr class="form__fields--inputFields">
                                     <td class="field">
-                                        <input type="text" class="inputtext" name="user" id="user" tabindex="1" data-error="Please give your username!">
+                                        <input type="text" class="inputtext" name="user" id="user" tabindex="5" data-error="Please give your username!">
                                     </td>
                                     <td class="field">
-                                        <input type="password" class="inputtext" name="pass" id="pass" tabindex="2" data-error="Please give your password  !">
+                                        <input type="password" class="inputtext" name="pass" id="pass" tabindex="6" data-error="Please give your password  !">
                                     </td>
                                 </tr>
-                                <tr class="form__fields--submitField">
-                                    <td class="field"></td>
-                                    <td class="field"></td>
-                                    <td class="field"></td>
-                                    <td class="field">
-                                        <label class="button" id="signUpButton">
-                                            <input value="Sign up" aria-label="signUp" tabindex="3" type="submit">
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <label id="signUpButton">
+                                            <input class="signUpButton button " value="Sign up" aria-label="signUp" type="submit">
                                         </label>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </form>
-                </div>
-                <div class="signUp__google">
-                    <h2>Or</h2>
-                    <div>
-                        <p>
-                            <b>Sign up with </b>
-                            <i class="fab fa-google-plus-g fa-lg"></i>
-                        </p>
-                    </div>
+                    <div class="signUp__logo">
+                        <picture class="signUp__logo--img">
+                            <a href="index.html" title="go back home">
+                                <img class="logo" src="img/png/logo.png">
+                            </a>
+                        </picture>
                 </div>
             </section>
         </main>

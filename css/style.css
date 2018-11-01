@@ -142,11 +142,11 @@ input {
     box-shadow: 0rem 0rem 2rem 1rem rgb(174, 187, 240);
 }
 
-.singUpButton {
+.signUpButton {
     background: #e9e1b0;
 }
 
-.singUpButton:hover {
+.signUpButton:hover {
     background: #d47475;
 }
 
