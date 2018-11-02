@@ -9,7 +9,7 @@ body{
 	font-family: 'Comfortaa', cursive;
 	color: #0f292f;
 	font-size: 1.6rem;
-	background: #d6d6d6;
+	background: #ffffff;
 }
 
 a {
@@ -49,7 +49,7 @@ input {
     box-sizing: border-box;
     padding: 6rem 0rem 6rem 0rem;
     width: 100%;
-    height: 20vh;
+    height: 21vh;
     background: #d47475;
     color: #ffffff;
     box-shadow: 0rem 1rem 5rem 1rem rgba(15,41,47,0.64);
@@ -115,7 +115,7 @@ input {
 
 .main {
     position: relative;
-    height: 60vh;
+    height: 54vh;
 }
 
 .sectionHeader {
@@ -134,7 +134,7 @@ input {
 .sectionHeader__appDescription {
     box-sizing: border-box;
     float: right;
-    width: 40%;
+    width: 35%;
     margin-left: 2rem;
     margin-right: 2rem;
     background: #aebbf0;
@@ -142,11 +142,11 @@ input {
     box-shadow: 0rem 0rem 2rem 1rem rgb(174, 187, 240);
 }
 
-.singUpButton {
+.signUpButton {
     background: #e9e1b0;
 }
 
-.singUpButton:hover {
+.signUpButton:hover {
     background: #d47475;
 }
 
@@ -188,7 +188,7 @@ input {
 .footer {
     box-sizing: border-box;
     width: 100%;
-    height: 20vh;
+    height: 25vh;
     position: relative;
     display: flex;
     padding: 2rem 0rem 2rem 0rem;

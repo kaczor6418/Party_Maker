@@ -86,9 +86,9 @@ require "includes/header.php";
             <div class="sectionHeader__appDescription">
                 <div class="sectionHeader__appDescription--joinUS">
                     <h2>Join Us</h2>
-                        <label id="singUp">
-                            <a href="signup.php">
-                                <input class="singUpButton button " value="Sing up" aria-label="signUp" type="submit">
+                        <label id="signUp">
+                            <a href="signUp.php">
+                                <input class="signUpButton button " value="Sign up" aria-label="signUp" type="submit">
                             </a>
                         </label>
                 </div>
