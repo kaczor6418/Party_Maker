@@ -1,38 +1,57 @@
 import {createRegExp} from "./createRegExp.js";
+import {regExpExpressions} from "../constantly/regExpExpressions.js";
 
-function isEmpty(inputField) {
-    if(inputField.value = '') {
-        return false;
+function setInvalidStyle(inputField) {
+    inputField.style.border = '0.3rem solid #861e1ede';
+    inputField.placeholder = inputField.dataset.error;
+}
+
+function setValidStyle(inputField) {
+    inputField.style.border = '0.3rem solid #2a5419d1';
+
+}
+
+function ifContains(regExp, inputField) {
+    if(regExp.test(inputField.value)) {
+        setValidStyle(inputField);
+        return true;
+    } else {
+        setInvalidStyle(inputField);
+        return undefined;
     }
-    return true;
+
 }
 
 export function isUsername(inputField) {
 
-    const minCharacters = 3;
-
-    if (inputField.value.length > minCharacters) {
-        inputField.style.background = '#b7eab4';
-        return true;
-    } else {
-        inputField.style.background = '#e9e1b0';
-        inputField.placeholder = inputField.dataset.error;
-        return undefined;
-    }
+    const regExp = createRegExp(regExpExpressions.nameOrSurname);
+    return ifContains(regExp, inputField);
 
 }
 
 export function isPassword(inputField) {
-    const regExp = createRegExp('"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"');
-    if(isEmpty(inputField)) {
-        inputField.style.background = '#e9e1b0';
-        inputField.placeholder = inputField.dataset.error;;
-        return undefined;
-    } else {
-        if(regExp.test(inputField.value)) {
-            return true;
-        } else {
-            return undefined;
-        }
-    }
+
+    const regExp = createRegExp(regExpExpressions.password);
+    return ifContains(regExp, inputField);
+}
+
+export function isNameOrSurname(inputField) {
+
+    const regExp = createRegExp(regExpExpressions.nameOrSurname);
+    return ifContains(regExp, inputField);
+
+}
+
+export function isEmail(inputField) {
+
+    const regExp = createRegExp(regExpExpressions.email);
+    return ifContains(regExp, inputField);
+
+}
+
+export function isBirthDate(inputField) {
+
+    const regExp = createRegExp(regExpExpressions.email);
+    return ifContains(regExp, inputField);
+
 }

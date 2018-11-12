@@ -1,4 +1,4 @@
-import {isUsername, isPassword} from "./isSth.js";
+import {isUsername, isPassword, isNameOrSurname, isEmail, isBirthDate} from "./isSth.js";
 
 export function formValidation(inputFields) {
 
@@ -15,20 +15,31 @@ export function formValidation(inputFields) {
             case 'password':
                 isValid = isPassword(inputField);
                 break;
+            case 'name':
+                isValid = isNameOrSurname(inputField);
+                break;
+            case 'surname':
+                isValid = isNameOrSurname(inputField);
+                break;
+            case 'email':
+                isValid = isEmail(inputField);
+                break;
+            case 'birthDate':
+                isValid = isBirthDate(inputField);
+                break;
             default:
                 console.log('Invalid filed name!!!');
         }
 
         if (!isValid) {
-            inputField.classList.add('error');
             errors.push(inputField.dataset.error);
-        }else {
-            field.classList.remove('error');
         }
 
     });
     if(errors.length) {
-        //displayErrors(errors);
+        //displayErrors(errors); for example we can show errors in console
+    } else {
+        //sendMessage
     }
 
 }

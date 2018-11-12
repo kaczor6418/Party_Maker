@@ -36,6 +36,7 @@ input {
     cursor: pointer;
     height: 4rem;
     padding: 0 2rem 0 2rem;
+    border-radius: 1rem;
     transition: background-color 0.3s ease-in-out;
 }
 
@@ -92,6 +93,8 @@ input {
     font-size: 2rem;
     width: 20rem;
     height: 3rem;
+    border: 0.3rem solid white;
+    border-radius: 1rem;
 }
 
 .login__fields--other a {
