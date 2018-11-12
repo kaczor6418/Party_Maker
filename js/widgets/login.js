@@ -1,11 +1,12 @@
-import {validation} from '../helpers/validation.js';
-import {sendForm} from "../helpers/sendForm.js";
+import {formValidation} from "../helpers/formValidation.js";
 
-export function login(button, form) {
-    button.addEventListener('submit', e => {
+export function login(loginForm) {
+
+    const inputFields = Array.from(loginForm.querySelectorAll('[data-error]'));
+
+    loginForm.addEventListener('submit', e => {
         e.preventDefault();
-        if(validation(form)){
-            sendForm(form);
-        }
-    })
+        formValidation(inputFields);
+    }, false);
+
 }
