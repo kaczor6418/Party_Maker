@@ -39,7 +39,7 @@ export function formValidation(inputFields) {
     if(errors.length) {
         //displayErrors(errors); for example we can show errors in console
     } else {
-        //sendMessage
+
     }
 
 }
