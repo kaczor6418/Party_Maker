@@ -1,12 +1,12 @@
 import {formValidation} from "../helpers/formValidation.js";
 
-export function registration(loginForm) {
+export function registration(signUpForm) {
 
-    const inputFields = Array.from(loginForm.querySelectorAll('[data-error]'));
+    const inputFields = Array.from(signUpForm.querySelectorAll('[data-error]'));
 
-    loginForm.addEventListener('submit', e => {
+    signUpForm.addEventListener('submit', e => {
         e.preventDefault();
-        formValidation(inputFields);
+        formValidation(inputFields, signUpForm);
     }, false);
 
 }

@@ -6,7 +6,7 @@ export function login(loginForm) {
 
     loginForm.addEventListener('submit', e => {
         e.preventDefault();
-        formValidation(inputFields);
+        formValidation(inputFields, loginForm);
     }, false);
 
 }

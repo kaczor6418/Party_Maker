@@ -1,6 +1,7 @@
 import {isUsername, isPassword, isNameOrSurname, isEmail, isBirthDate} from "./isSth.js";
+import {sendMessage} from "./sendMessage.js";
 
-export function formValidation(inputFields) {
+export function formValidation(inputFields, form) {
 
     const errors = [];
 
@@ -39,7 +40,7 @@ export function formValidation(inputFields) {
     if(errors.length) {
         //displayErrors(errors); for example we can show errors in console
     } else {
-
+        sendMessage(inputFields, form);
     }
 
 }
