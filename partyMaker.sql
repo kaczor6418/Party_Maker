@@ -17,7 +17,7 @@ CREATE TABLE users(
 );
 
 CREATE TABLE events(
-	event_id int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    event_id int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     creator_id int(20) UNSIGNED NOT NULL,
     event_name varchar(100) NOT NULL,
     event_description varchar(400) NOT NULL,
@@ -26,4 +26,25 @@ CREATE TABLE events(
     event_logo varchar(255) NOT NULL,
     PRIMARY KEY (event_id),
     FOREIGN KEY (creator_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE events_participants (
+    info_id int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    event_id int(20) UNSIGNED NOT NULL,
+    participant_id int(20) UNSIGNED NOT NULL,
+    status int(3) UNSIGNED NOT NULL,
+    PRIMARY KEY (info_id),
+    FOREIGN KEY (event_id) REFERENCES events(event_id),
+    FOREIGN KEY (participant_id) REFERENCES users(user_id)
+);
+
+create table events_posts (
+    post_id int(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    event_id int(20) UNSIGNED NOT NULL,
+    post_creator int(20) UNSIGNED NOT NULL,
+    post_content varchar(500) NOT NULL,
+    post_date date NOT NULL,
+    PRIMARY KEY (post_id),
+    FOREIGN KEY (event_id) REFERENCES events(event_id),
+    FOREIGN KEY (post_creator) REFERENCES users(user_id)
 );
