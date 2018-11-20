@@ -11,5 +11,7 @@ CREATE TABLE users(
 	lastUnsuccessfulLogin TIMESTAMP NOT NULL,
     	lastActive TIMESTAMP NOT NULL,
 	email varchar(255) NOT NULL,
+    	avatar varchar(255) NOT NULL,
+    	ip varchar(16) NOT NULL,
 	PRIMARY KEY (user_id)
 );
