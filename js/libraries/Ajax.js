@@ -100,7 +100,7 @@ AJAX.prototype._handleResponse = function() {
 
     if(this._xhr.readyState === 4 && this._xhr.status >= 200 && this._xhr.status < 400) {
         if(typeof this._config.success === 'function') {
-            this._config.success(this._xhr.response, this._xhr);
+            this._config.success(this._xhr.response);
         }
     } else if(this._xhr.readyState === 4 && this._xhr.status >= 400) {
         this._handleError();
