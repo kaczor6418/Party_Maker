@@ -1,27 +1,18 @@
-import {AJAX} from "../libraries/Ajax.js";
-
 export function sendMessage(inputFields, form) {
 
-    const data = {};
+    const xhr = new XMLHttpRequest(),
+          data = new FormData(),
+          method = form.getAttribute('method'),
+          action = form.getAttribute('action');
     inputFields.forEach(field => {
-        data[field.name] = field.value
+        data.append(field.name, field.value);
     });
-    AJAX({
-        type: form.getAttribute('method'),
-        url: form.getAttribute('action'),
-        data: data,
-        success: function (response) {
-            response = '{ "success":"info od Ciebie"}';
-            const res = JSON.parse(response);
-            if ('error' in res) {
-                // show error message
-            } else if ('success' in res) {
-                // show success message
-                form.removeEventListener('submit', sendMessage, false);
-                form.querySelector('.button').setAttribute('disabled', 'disabled');
-            }
+    xhr.open(method, action, true);
+    xhr.onreadystatechange = function() {
+        if(this.readyState === 4 && this.status >= 200 && this.status < 400) {
+            console.log(this.response);
         }
-    });
-    form.addEventListener('submit', sendMessage, false);
+    };
+    xhr.send(data);
 
 }
