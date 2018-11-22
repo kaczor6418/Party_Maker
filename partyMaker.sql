@@ -48,3 +48,29 @@ create table events_posts (
     FOREIGN KEY (event_id) REFERENCES events(event_id),
     FOREIGN KEY (post_creator) REFERENCES users(user_id)
 );
+
+-- events and its participants
+select ev.event_name, us.name, us.surname
+	from events_participants p
+		join events ev
+			on ev.event_id = p.event_id
+				join users us
+					on p.participant_id = us.user_id;
+-- optionally you can add where clause here like: where ev.event_id = 10; to get participants of particular event
+
+-- how many participants per event?
+select ev.event_id, count(ev.event_id)
+	from events_participants p
+		join events ev
+			on p.event_id = ev.event_id
+				join users us
+					on p.participant_id = us.user_id
+-- optionally you can add where clause here like: where ev.event_id = 10 to get number of participants of particular event
+						group by event_id;
+
+-- event details when particular_participant is given
+select ev.event_id, ev.event_name, ev.event_description, ev.event_date, ev.event_location, ev.event_logo 
+	from events ev
+		join events_participants p 
+			on ev.event_id = p.event_id
+				where p.participant_id = 10; -- whatever numeric value that corresponds to participant_id
