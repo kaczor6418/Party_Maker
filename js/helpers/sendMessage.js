@@ -1,18 +1,27 @@
+import {AJAX} from "../libraries/Ajax.js";
+
 export function sendMessage(inputFields, form) {
 
-    const xhr = new XMLHttpRequest(),
-          data = new FormData(),
-          method = form.getAttribute('method'),
-          action = form.getAttribute('action');
+    const data = {};
     inputFields.forEach(field => {
-        data.append(field.name, field.value);
+        data[field.name] = field.value
     });
-    xhr.open(method, action, true);
-    xhr.onreadystatechange = function() {
-        if(this.readyState === 4 && this.status >= 200 && this.status < 400) {
-            console.log(this.response);
+    AJAX({
+        type: form.getAttribute('method'),
+        url: form.getAttribute('action'),
+        data: data,
+        success: function (response) {
+            console.log(response);
+            /*const res = JSON.parse(response);
+            if ('error' in res) {
+                // show error message
+            } else if ('success' in res) {
+                // show success message
+                form.removeEventListener('submit', sendMessage, false);
+                form.querySelector('.button').setAttribute('disabled', 'disabled');
+            }*/
         }
-    };
-    xhr.send(data);
+    });
+    form.addEventListener('submit', sendMessage, false);
 
 }

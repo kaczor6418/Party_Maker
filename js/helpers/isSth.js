@@ -24,7 +24,7 @@ function ifContains(regExp, inputField) {
 
 export function isUsername(inputField) {
 
-    const regExp = createRegExp(regExpExpressions.nameOrSurname);
+    const regExp = createRegExp(regExpExpressions.username);
     return ifContains(regExp, inputField);
 
 }
@@ -51,7 +51,7 @@ export function isEmail(inputField) {
 
 export function isBirthDate(inputField) {
 
-    const regExp = createRegExp(regExpExpressions.email);
+    const regExp = createRegExp(regExpExpressions.birthDate);
     return ifContains(regExp, inputField);
 
 }
