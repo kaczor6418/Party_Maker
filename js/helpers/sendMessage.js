@@ -1,25 +1,32 @@
 import {AJAX} from "../libraries/Ajax.js";
+import {showMessage} from "./showMessage.js";
 
-export function sendMessage(inputFields, form) {
+export function sendMessage(inputFields, form, formType) {
 
     const data = {};
     inputFields.forEach(field => {
         data[field.name] = field.value
     });
+    data[formType] = formType;
     AJAX({
         type: form.getAttribute('method'),
         url: form.getAttribute('action'),
         data: data,
         success: function (response) {
-            console.log(response);
-            /*const res = JSON.parse(response);
+            response = `{
+                "success": {
+                    "info": "error/success info",
+                    "errorFields": "username,password"
+                }
+            }`;
+            const res = JSON.parse(response);
             if ('error' in res) {
-                // show error message
+                showMessage('error', res );
             } else if ('success' in res) {
-                // show success message
+                showMessage('success', res );
                 form.removeEventListener('submit', sendMessage, false);
                 form.querySelector('.button').setAttribute('disabled', 'disabled');
-            }*/
+            }
         }
     });
     form.addEventListener('submit', sendMessage, false);

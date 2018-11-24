@@ -25,6 +25,49 @@ input {
     border: none;
 }
 
+.errorServer {
+    position: absolute;
+    top: 1rem;
+    padding-left: 40%;
+    padding-right: 40%;
+    width: 20%;
+}
+
+.successServer {
+    position: absolute;
+    top: 1rem;
+    padding-left: 40%;
+    padding-right: 40%;
+    width: 20%;
+}
+
+.errorServer label{
+    background: #fecdcdde;
+    border: 0.3rem solid #861e1ede;
+    border-radius: 1rem;
+    padding: 0.15rem 1rem 0.15rem 1rem;
+    box-shadow: 0rem 0rem 1rem 0.2rem rgba(0,0,0,0.75);
+    text-align: center;
+}
+
+.successServer label{
+    background: #caf4bad1;
+    border: 0.3rem solid  #2a5419d1;
+    border-radius: 1rem;
+    padding: 0.15rem 1rem 0.15rem 1rem;
+    box-shadow: 0rem 0rem 1rem 0.2rem rgba(0,0,0,0.75);
+    text-align: center;
+}
+
+.beforeInformation {
+    float: left;
+}
+
+.informationAboutField {
+    float: left;
+    vertical-align: middle;
+}
+
 .logo {
     transition: transform 0.3s ease-in-out;
 }
@@ -109,11 +152,11 @@ input {
     color: #aebbf0;
 }
 
-.submitButton {
+.loginButton {
     background-color: #ead2d2;
 }
 
-.submitButton:hover {
+.loginButton:hover {
     background-color: #aebbf0;
 }
 
