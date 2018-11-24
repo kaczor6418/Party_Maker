@@ -29,7 +29,7 @@ class User
         	}
         	else
         	{
-        		echo "Użytkownik nie jest zalogowany!";
+        		die("Użytkownik nie jest zalogowany!");
         	}
         }
     	$statement = $this->connect->prepare('SELECT user_id, login, name, surname, birthDate, regDate, lastSuccessfulLogin, attempts, lastUnsuccessfulLogin, lastActive, email FROM users WHERE user_id = ?');
@@ -48,51 +48,91 @@ class User
 
 	public function signUp($name, $surname, $email, $birth, $username, $password)
 	{
+		$errorObjString = array();
+		
 		if(empty($name) || empty($surname) || empty($email) || empty($birth) || empty($username) || empty($password))
 		{
-			$_SESSION['error'] = 'Wypełnij wszystkie pola!<br>';
+			echo json_encode(array('error' => array('info' => 'Wypełnij wszystkie pola!')));
+			//echo "<br>".$name.", ".$username.", ".$email.", ".$birth.", ".$username.", ".$password;
+			die();
 		}
-		else if(!isDate($birth))
+		
+		if(!isDate($birth))
 		{
-			$_SESSION['error'] = 'Podałeś niepoprawną datę. Format: DD/MM/RRRR<br>';
+			//echo json_encode(array('error' => array('info' => 'odałeś niepoprawną datę. Format: DD/MM/RRRR', 'errorObj' => 'birdt')));
+			$errorObjString[] = 'birdt';
 		}
-		else if(strlen($name) < 3 || strlen($surname) < 3)
+		
+		if(strlen($name) < 3)
 		{
-			$_SESSION['error'] = 'Twoje imię i nazwisko nie mogą mieć mniej niż 3 znaki.<br>';
+			//echo json_encode(array('error' => array('info' => 'Twoje imię nie może mieć mniej niż 3 znaki', 'errorObj' => 'name')));
+			$errorObjString[] = 'name';
 		}
-		else if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+		
+		if(strlen($surname) < 3)
 		{
-			$_SESSION['error'] = 'Podaj poprawny email.<br>';
+			//echo json_encode(array('error' => array('info' => 'Twoje nazwisko nie może mieć mniej niż 3 znaki', 'errorObj' => 'surname')));
+			$errorObjString[] = 'surname';
 		}
-		else if(strlen($username) < 3)
+		
+		if(!filter_var($email, FILTER_VALIDATE_EMAIL))
 		{
-			$_SESSION['error'] = 'Nazwa użytkownika nie może być krótsza niż 3 znaki.<br>';
+			//echo json_encode(array('error' => array('info' => 'Podane adres email jest niepoprawny!', 'errorObj' => 'email')));
+			$errorObjString[] = 'email';
 		}
-		else if(strlen($password) < 8)
+		
+		if(strlen($username) < 3)
 		{
-			$_SESSION['error'] = 'Twoje hasło musi mieć minimum 8 znaków!<br>';
+			//echo json_encode(array('error' => array('info' => 'Nazwa użytkownika nie może być krótsza niż 3 znaki', 'errorObj' => 'user')));
+			$errorObjString[] = 'user';
 		}
-		else
+		
+		if(strlen($password) < 8)
 		{
-			$statement = $this->connect->prepare('SELECT user_id FROM users WHERE login = ?');
-			$statement->bind_param('s', $username);
-			if($statement->execute())
+			//echo json_encode(array('error' => array('info' => 'Twoje hasło musi mieć minimum 8 znaków', 'errorObj' => 'pass')));
+			$errorObjString[] = 'pass';
+		}
+		if(!empty($errorObjString))
+		{	
+			echo json_encode(array('error' => array('info' => 'Znaleziono bledy!', 'errorFileds' => implode(",", $errorObjString))));
+			die();
+		}
+		
+		
+		$statement = $this->connect->prepare('SELECT user_id FROM users WHERE login = ?');
+		$statement->bind_param('s', $username);
+		if($statement->execute())
+		{
+			$result = $statement->get_result();
+			if($result->num_rows)
 			{
-				$result = $statement->get_result();
-				if($result->num_rows)
+				echo json_encode(array('error' => array('info' => 'Taki użytkownik już istnieje w naszym systemie. Wprowadź inną nazwę.', 'errorObj' => 'user')));
+			}
+			else
+			{
+				$statement = $this->connect->prepare('SELECT user_id FROM users WHERE email = ?');
+				$statement->bind_param('s', $email);
+				if($statement->execute())
 				{
-					$_SESSION['error'] = 'Taki użytkownik istnieje w naszym systemie. Zaloguj się!<br>';
-				}
-				else
-				{
-					//INSERT INTO `users` (`user_id`, `login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `lastSuccessfulLogin`, `attempts`, `lastUnsuccessfulLogin`, `lastActive`) VALUES (NULL, 'test', 'test', 'test', 'test', 'test', '', '', '', '', '');
-					$statement = $this->connect->prepare("INSERT INTO `users` (`login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `email`) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%m/%d/%Y'), NOW(), ?)");
-					$passhash = password_hash($password, PASSWORD_DEFAULT);
-					$statement->bind_param('ssssss', $username, $passhash, $name, $surname, $birth, $email);
-					if($statement->execute())
+					$result = $statement->get_result();
+					if($result->num_rows)
 					{
-						$_SESSION['error'] = 'Twoje konto zostało utworzone. Zaloguj się!<br>'; //narazie nigdzie się nie wyświetla, bo usuwa się zawartość chwilę przed przekierowaniem (rendering strony signup.php)
-						header('Location: http://'.$_SERVER["HTTP_HOST"]);
+						echo json_encode(array('error' => array('info' => 'Taki email jest już zarejestrowany. Zaloguj się!', 'errorObj' => 'email')));
+					}
+					else
+					{
+						//INSERT INTO `users` (`user_id`, `login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `lastSuccessfulLogin`, `attempts`, `lastUnsuccessfulLogin`, `lastActive`) VALUES (NULL, 'test', 'test', 'test', 'test', 'test', '', '', '', '', '');
+						$statement = $this->connect->prepare("INSERT INTO `users` (`login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `email`) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%m/%d/%Y'), NOW(), ?)");
+						$passhash = password_hash($password, PASSWORD_DEFAULT);
+						$statement->bind_param('ssssss', $username, $passhash, $name, $surname, $birth, $email);
+						if($statement->execute())
+						{
+							echo json_encode(array('success' => array('info' => 'Twoje konto zostało utworzone. Zaloguj się!')));
+						}
+						else
+						{
+							echo json_encode(array('error' => array('info' => 'Coś poszło nie tak :c Spróbuj ponownie!')));
+						}
 					}
 				}
 			}
@@ -103,39 +143,45 @@ class User
 	{
 		if(empty($login) || empty($passwordword))
 		{
-			$_SESSION['error'] = 'Wypełnij wszystkie pola!<br>';
+			echo json_encode(array('error' => 'Wypełnij wszystkie pola!'));
 		}
 		else
 		{
-			$statement = $this->connect->prepare('SELECT user_id, password, attempts, lastUnsuccessfulLogin FROM users WHERE login = ?');
-			$statement->bind_param('s', $login);
+			$statement = $this->connect->prepare('SELECT login, user_id, password, attempts, lastUnsuccessfulLogin FROM users WHERE login = ? OR email = ?');
+			$statement->bind_param('ss', $login, $login);
 			if($statement->execute())
 			{
 				$result = $statement->get_result();
 				if(!$result->num_rows)
 				{
-					$_SESSION['error'] = 'Taki użytkownik nie istnieje w naszym systemie. Zarejestruj się!<br>';
+					
+				/*'{"error": {
+                "info": "error/success info",
+                "errorObj": "firstNanem, lastName"
+                }}'*/
+					echo json_encode(array('error' => array('info' => 'Takie konto nie istnieje!')));
 				}
 				else
 				{
 					$usernameData = $result->fetch_assoc();
 					if($usernameData["attempts"] > 3 && strtotime($usernameData["lastUnsuccessfulLogin"]) + 300>= time()) //300 sekund - czas dodatkowy, aby uniknąć brute force
 					{
-						$_SESSION['error'] = 'Próbowałeś zalogować się zbyt wiele razy. Spróbuj ponownie za 5 minut.<br>';
+						echo json_encode(array('error' => array('info' => 'Próbowałeś zalogować się zbyt wiele razy. Spróbuj ponownie za 5 minut.')));
 					}
 					else if(password_verify($passwordword, $usernameData["password"]))
 					{
 						$_SESSION["user_id"] = $usernameData["user_id"];
 						$statement = $this->connect->prepare('UPDATE `users` SET lastSuccessfulLogin = NOW(), attempts = 0 WHERE login = ?');
-						$statement->bind_param('s', $login);
+						$statement->bind_param('s', $usernameData["login"]);
 						$statement->execute();
+						echo json_encode(array('success' => array('info' => 'Zalogowałeś się!')));
 					}
 					else
 					{
 						//INSERT INTO `users` (`user_id`, `login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `lastSuccessfulLogin`, `attempts`, `lastUnsuccessfulLogin`, `lastActive`) VALUES (NULL, 'test', 'test', 'test', 'test', 'test', '', '', '', '', '');
-						$_SESSION['error'] = 'Błędny login lub hasło!<br>';
+						echo json_encode(array('error' => array('info' => 'Błędny login lub hasło!')));
 						$statement = $this->connect->prepare('UPDATE `users` SET lastUnsuccessfulLogin = NOW(), attempts = attempts + 1 WHERE login = ?');
-						$statement->bind_param('s', $login);
+						$statement->bind_param('s', $usernameData["login"]);
 						$statement->execute();
 					}
 				}

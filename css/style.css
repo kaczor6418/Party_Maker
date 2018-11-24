@@ -36,6 +36,8 @@ input {
     cursor: pointer;
     height: 4rem;
     padding: 0 2rem 0 2rem;
+    border-radius: 1rem;
+    text-align: center;
     transition: background-color 0.3s ease-in-out;
 }
 
@@ -87,11 +89,13 @@ input {
     padding-left: 0.5rem;
 }
 
-.inputtext {
+.inputText {
     padding-left: 1rem;
     font-size: 2rem;
     width: 20rem;
     height: 3rem;
+    border: 0.3rem solid white;
+    border-radius: 1rem;
 }
 
 .login__fields--other a {
@@ -143,6 +147,7 @@ input {
 }
 
 .signUpButton {
+    max-width: 80%;
     background: #e9e1b0;
 }
 
@@ -249,4 +254,56 @@ input {
 
 .footer__block--socialMedia td {
     padding: 1.5rem;
+}
+
+.mainBackground {
+    height: 100vh;
+    background: url("../img/jpg/slider1.jpg") no-repeat;
+    background-size: cover;
+}
+
+.field {
+    padding-bottom: 5rem;
+}
+
+.mainField label {
+    position: relative;
+    display: flex;
+}
+
+.button {
+    float: right;
+}
+
+.signUp {
+    width: 60%;
+    background: #d47475;
+    height: 70%;
+    margin: 0rem auto 15rem;
+    box-shadow: 0rem 0rem 3rem 3rem rgba(212,116,117,1);
+}
+
+.signUp__wrap {
+    position: absolute;
+    box-sizing: border-box;
+    max-height: inherit;
+    width: inherit;
+    font-size: 2rem;
+    color: #ffffff;
+    text-align: center;
+}
+
+.signUp__form {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 4rem;
+    margin: 0 auto;
+}
+
+.signUpButton:hover {
+    background: #aebbf0;
+}
+
+.logo {
+    max-width: 20%;
 }
