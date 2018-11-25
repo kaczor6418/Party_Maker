@@ -69,7 +69,7 @@ require 'includes/header.php';
                     </form>
                     <div class="signUp__logo">
                         <picture class="signUp__logo--img">
-                            <a href="index.html" title="go back home">
+                            <a href="index.php" title="go back home">
                                 <img class="logo" src="img/png/logo.png">
                             </a>
                         </picture>

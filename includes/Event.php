@@ -1,4 +1,14 @@
 <?php
+function resultToArray($result) 
+{
+    $rows = array();
+    while($row = $result->fetch_assoc()) 
+	{
+        $rows[] = $row;
+    }
+    return $rows;
+}
+
 class Event
 {
 	private $connect;
@@ -21,6 +31,7 @@ class Event
         		die("Użytkownik nie jest zalogowany!");
         	}
         }
+		
     	$statement = $this->connect->prepare('SELECT event_id, event_name, event_description, event_date, event_location, event_logo FROM events WHERE creator_id = ?');
 		$statement->bind_param('i', $idEventCreator);
 		if($statement->execute())
@@ -43,8 +54,7 @@ class Event
 				die("Użytkownik nie jest zalogowany!");
 			}
 		}
-		//$statement = $this->connect->prepare('SELECT event_id, nameEvent, descDevent, dateEvent, locEvent, logoEvent FROM participantsEvent WHERE creator_id = ?');
-		//Zgoła pracuje, hueh
+		$statement = $this->connect->prepare('select ev.event_id, ev.event_name, ev.event_description, ev.event_date, ev.event_location, ev.event_logo from events ev join events_participants p on ev.event_id = p.event_id where p.participant_id = ?');
 		$statement->bind_param('i', $idParticipate);
 		if($statement->execute())
 		{
@@ -77,6 +87,7 @@ class Event
 				die("Użytkownik nie jest zalogowany!");
 			}
 		}
+		
 		$statement = $this->connect->prepare('SELECT post_id, event_id, post_creator, post_content, post_date FROM events_posts WHERE creator_id = ?');
 		$statement->bind_param('i', $idCreator);
 		if($statement->execute())
@@ -99,12 +110,37 @@ class Event
 				die("Użytkownik nie jest zalogowany!");
 			}
 		}
+		
 		$statement = $this->connect->prepare('SELECT comment_id, post_id, comment_creator, comment_content, comment_date FROM post_comments WHERE creator_id = ?');
 		$statement->bind_param('i', $idCreator);
 		if($statement->execute())
 		{
 			$result = $statement->get_result();
 			return $result->fetch_assoc();
+		}
+	}
+	
+	public function getEventParticipants($event_id)
+	{
+		$statement = $this->connect->prepare('SELECT event_name, event_date, event_description FROM events WHERE event_id = ?');
+		$statement->bind_param('i', $event_id);
+		if($statement->execute())
+		{
+			$result = $statement->get_result();
+			if(!$result->num_rows)
+			{
+				return 'bad event_id';
+			}
+			else
+			{
+				$statement = $this->connect->prepare('select ev.event_name, us.name, us.surname from events_participants p join events ev on ev.event_id = p.event_id join users us on p.participant_id = us.user_id where ev.event_id = ?');
+				if($statement->execute())
+				{
+					$result = $statement->get_result();
+					$rows = resultToArray($result);
+					return $rows;
+				}
+			}
 		}
 	}
 	//getNeighbourhoodEvent, createEvent, createPost, createComment

@@ -94,7 +94,8 @@ class User
 		}
 		if(!empty($errorObjString))
 		{	
-			echo json_encode(array('error' => array('info' => 'Znaleziono bledy!', 'errorFileds' => implode(",", $errorObjString))));
+			echo json_encode(array('error' => array('info' => 'Znaleziono bledy!', 'errorFileds' => $errorObjString)));
+			//implode(",", $errorObjString)
 			die();
 		}
 		
@@ -122,9 +123,10 @@ class User
 					else
 					{
 						//INSERT INTO `users` (`user_id`, `login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `lastSuccessfulLogin`, `attempts`, `lastUnsuccessfulLogin`, `lastActive`) VALUES (NULL, 'test', 'test', 'test', 'test', 'test', '', '', '', '', '');
-						$statement = $this->connect->prepare("INSERT INTO `users` (`login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `email`) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%m/%d/%Y'), NOW(), ?)");
+						$statement = $this->connect->prepare("INSERT INTO `users` (`login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `email`, `ip`) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%m/%d/%Y'), NOW(), ?, ?)");
 						$passhash = password_hash($password, PASSWORD_DEFAULT);
-						$statement->bind_param('ssssss', $username, $passhash, $name, $surname, $birth, $email);
+						$ip_address = $_SERVER['REMOTE_ADDR'];
+						$statement->bind_param('sssssss', $username, $passhash, $name, $surname, $birth, $email, $ip_address);
 						if($statement->execute())
 						{
 							echo json_encode(array('success' => array('info' => 'Twoje konto zostało utworzone. Zaloguj się!')));
@@ -171,8 +173,9 @@ class User
 					else if(password_verify($passwordword, $usernameData["password"]))
 					{
 						$_SESSION["user_id"] = $usernameData["user_id"];
-						$statement = $this->connect->prepare('UPDATE `users` SET lastSuccessfulLogin = NOW(), attempts = 0 WHERE login = ?');
-						$statement->bind_param('s', $usernameData["login"]);
+						$ip_address = $_SERVER['REMOTE_ADDR'];
+						$statement = $this->connect->prepare('UPDATE `users` SET lastSuccessfulLogin = NOW(), attempts = 0, ip = ? WHERE login = ?');
+						$statement->bind_param('ss', $ip_address, $usernameData["login"]);
 						$statement->execute();
 						echo json_encode(array('success' => array('info' => 'Zalogowałeś się!')));
 					}
