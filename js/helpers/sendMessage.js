@@ -2,8 +2,9 @@ import {AJAX} from "../libraries/Ajax.js";
 import {showMessage} from "./showMessage.js";
 
 export function sendMessage(inputFields, form, formType) {
-
+    console.log(inputFields);
     const data = {};
+    console.log(inputFields);
     inputFields.forEach(field => {
         data[field.name] = field.value
     });
@@ -14,7 +15,7 @@ export function sendMessage(inputFields, form, formType) {
         data: data,
         success: function (response) {
             response = `{
-                "success": {
+                "error": {
                     "info": "error/success info",
                     "errorFields": "username,password"
                 }
