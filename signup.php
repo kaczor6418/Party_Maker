@@ -1,7 +1,10 @@
 <?php
 require 'includes/header.php';
 ?>
-	<body>
+	<link rel="stylesheet" href="css/signUp.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
         <main class="mainBackground">
             <section class="signUp">
                 <div class="signUp__wrap">
@@ -10,50 +13,68 @@ require 'includes/header.php';
                             <tbody class="form__fields" >
                                 <tr class="form__fields--titleFields">
                                     <td class="mainField">
-                                        <label >First name :</label>
+                                        <label class="beforeInformation" >First name</label>
+                                        <i title="Your first name should contains only letters"
+                                           class="fas fa-info-circle informationAboutField firstNameInformation"></i>
                                     </td>
                                     <td class="mainField">
-                                        <label >Last name :</label>
+                                        <label class="beforeInformation" >Last name</label>
+                                        <i title="Your last name should contains only letters"
+                                           class="fas fa-info-circle informationAboutField lastNameInformation"></i>
                                     </td>
                                 </tr>
                                 <tr class="form__fields--inputFields">
                                     <td class="field">
-                                        <input type="text" class="inputText" name="name" id="name" tabindex="1" data-error="Enter name!">
+                                        <input type="text" class="inputText" name="firstName" id="firstName" tabindex="1"
+                                               data-error="First name is incorrect it should contain min 3 characters)" data-success="Correct first name">
                                     </td>
                                     <td class="field">
-                                        <input type="text" class="inputText" name="surname" id="surname" tabindex="2" data-error="Enter surname!">
+                                        <input type="text" class="inputText" name="lastName" id="lastName" tabindex="2"
+                                               data-error="Last name is incorrect it (should contain min 3 characters)" data-success="Correct last name">
                                     </td>
                                 </tr>
                                 <tr class="form__fields--titleFields">
                                     <td class="mainField">
-                                        <label for="email">e-mail :</label>
+                                        <label class="beforeInformation" title="Enter your email" for="email">e-mail</label>
+                                        <i title="Enter your email"
+                                           class="fas fa-info-circle informationAboutField emailInformation"></i>
                                     </td>
                                     <td class="mainField">
-                                        <label >Birth date :</label>
+                                        <label class="beforeInformation" >Birth date</label>
+                                        <i title="Enter your birth date (format of your birth date: dd/mm/yyyy)"
+                                           class="fas fa-info-circle informationAboutField birthDateInformation"></i>
                                     </td>
                                 </tr>
                                 <tr class="form__fields--inputFields">
                                     <td class="field">
-                                        <input type="email" class="inputText" name="email" id="email" tabindex="3" data-error="Enter your email!">
+                                        <input type="email" class="inputText" name="email" id="email" tabindex="3"
+                                               data-error="Your email is incorrect" data-success="Correct email">
                                     </td>
                                     <td class="field">
-                                        <input type="text" class="inputText" name="birthDate" id="birthDate" tabindex="4" data-error="Enter birth date!">
+                                        <input type="text" class="inputText" name="birthDate" id="birthDate" tabindex="4"
+                                               data-error="Your birth date format should looks like dd/mm/yyyy" data-success="Correct birth date">
                                     </td>
                                 </tr>
                                 <tr class="form__fields--titleFields">
                                     <td class="mainField">
-                                        <label >Username :</label>
+                                        <label class="beforeInformation" >Username</label>
+                                        <i title="Your must contain min 3 letters and it can contain numbers"
+                                           class="fas fa-info-circle informationAboutField usernameInformation"></i>
                                     </td>
                                     <td class="mainField">
-                                        <label >Password :</label>
+                                        <label class="beforeInformation" >Password</label>
+                                        <i title="Your password must contain min 8 characters min one small letter one big letter one number and one special sign[@$!%*?&#^_]"
+                                           class="fas fa-info-circle informationAboutField passwordInformation"></i>
                                     </td>
                                 </tr>
                                 <tr class="form__fields--inputFields">
                                     <td class="field">
-                                        <input type="text" class="inputText" name="username" id="username" tabindex="5" data-error="Enter username!">
+                                        <input type="text" class="inputText" name="username" id="username" tabindex="5"
+                                               data-error="Username is incorrect it should contain min 3 characters)" data-success="Correct username">
                                     </td>
                                     <td class="field">
-                                        <input type="password" class="inputText" name="password" id="password" tabindex="6" data-error="Enter password!">
+                                        <input type="password" class="inputText" name="password" id="password" tabindex="6"
+                                               data-error="Your password should contain min 8 characters min one small letter one big letter one number and one special sign[@$!%*?&#^_]" data-success="Correct password">
                                     </td>
                                 </tr>
                                 <tr>
@@ -79,4 +100,5 @@ require 'includes/header.php';
         </main>
         <script src="js/scripts/signUp.js" type="module"></script>
     </body>
+
 </html>

@@ -66,13 +66,13 @@ class User
 		if(strlen($name) < 3)
 		{
 			//echo json_encode(array('error' => array('info' => 'Twoje imię nie może mieć mniej niż 3 znaki', 'errorObj' => 'name')));
-			$errorObjString[] = 'name';
+			$errorObjString[] = 'firstName';
 		}
 		
 		if(strlen($surname) < 3)
 		{
 			//echo json_encode(array('error' => array('info' => 'Twoje nazwisko nie może mieć mniej niż 3 znaki', 'errorObj' => 'surname')));
-			$errorObjString[] = 'surname';
+			$errorObjString[] = 'lastName';
 		}
 		
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL))

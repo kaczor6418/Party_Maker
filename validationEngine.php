@@ -11,8 +11,8 @@ if(isset($_POST["login"]))
 
 if(isset($_POST["signUp"]))
 {
-    $name = $_POST["name"];
-    $surname = $_POST["surname"];
+    $name = $_POST["firstName"];
+    $surname = $_POST["lastName"];
     $email = $_POST["email"];
     $birth = $_POST["birthDate"];
     $username = $_POST["username"];
