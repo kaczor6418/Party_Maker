@@ -31,22 +31,28 @@
     </header>
     <main>
         <section class="navigation">
-            <div class="navigation__search">
+            <form action="index.php" method="post" class="search">
                 <label>Search for event:</label>
-                <input class="inputText" name="search"  placeholder="Search..." data-error="This event is not exist!">
-            </div>
-            <div class="navigation__filter">
+                <i title="Enter event name"
+                   class="fas fa-info-circle informationAboutField searchInformation"></i>
+                <input class="inputText" name="search"  placeholder="Search..."
+                       data-error="This event is not exist!" data-success="This event is exist">
+            </form>
+            <form action="index.php" method="post" class="filter">
                 <h4>Filter:</h4>
                 <table>
                     <tbody>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
                                 <label>Category</label>
+                                <i title="Enter your password"
+                                   class="fas fa-info-circle informationAboutField categoryInformation"></i>
                             </td>
                         </tr>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
-                                <select class="inputText" name="category" id="category" tabindex="1" data-error="Choose category!">
+                                <select class="inputText" name="category" id="category" tabindex="1"
+                                        data-error="Choose category!" data-success="Correct category">
                                     <option class="select" value="" disabled selected>Category</option>
                                     <option class="select" value="">option1</option>
                                     <option class="select" value="">option2</option>
@@ -57,41 +63,61 @@
                         <tr class="navigation__filter--fields row">
                             <td class="field">
                                 <label>Localization</label>
+                                <i title="Enter your password"
+                                   class="fas fa-info-circle informationAboutField localizationInformation"></i>
                             </td>
                         </tr>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
-                                <input type="text" class="inputText" name="localization" id="localization" tabindex="2" data-error="Incorrect localization!">
+                                <input type="text" class="inputText" name="localization" id="localization" tabindex="2"
+                                       data-error="Incorrect localization!" data-success="Correct localization">
                             </td>
                         </tr>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
                                 <label>Age</label>
+                                <i title="Enter your password"
+                                   class="fas fa-info-circle informationAboutField ageInformation"></i>
                             </td>
                         </tr>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
-                                <input type="text" class="inputText" name="age" id="age" tabindex="3" data-error="Incorrect age!">
+                                <input type="text" class="inputText" name="age" id="age" tabindex="3"
+                                       data-error="Incorrect age!" data-success="Correct age">
                             </td>
                         </tr>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
                                 <label>Date</label>
+                                <i title="Enter your password"
+                                   class="fas fa-info-circle informationAboutField dateInformation"></i>
                             </td>
                         </tr>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
-                                <input type="text" class="inputText" name="date" id="date" tabindex="4" data-error="Choose date!">
+                                <input type="text" class="inputText" name="date" id="date" tabindex="4"
+                                       data-error="Choose date!" data-success="Correct date">
+                            </td>
+                        </tr>
+                        <tr class="navigation__filter--fields row">
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <label>
+                                    <input class="filterButton button " name="filterButton" value="filter" aria-label="filter" type="submit">
+                                </label>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </form>
         </section>
         <section class="events">
             <div class="events__container">
-                <div class="events__container--sortBy">
-                    <select class="inputText" name="sortBy" id="sortBy" data-error="Choose category!">
+                <form action="index.php" method="post" class="sort">
+                    <i title="Choose sorting mode" class="fas fa-info-circle informationAboutField sortInformation"></i>
+                    <select class="inputText" name="sort" id="sortBy"
+                            data-error="Choose sorting mode!" data-success="Correct sorting mode">
                         <option class="select" value="" disabled selected>Sort by</option>
                         <option class="select" value="Least popular">Least popular</option>
                         <option class="select" value="Most popular">Most Popular</option>
@@ -101,7 +127,7 @@
                     <label>
                             <input class="sortButton button " name="sortButton" value="sort" aria-label="sort" type="submit">
                     </label>
-                </div>
+                </form>
                 <div class="events__container--allEvents">
                     <div class="event">
                         <h3>Title</h3>
@@ -128,6 +154,7 @@
             </div>
         </section>
     </main>
+    <script src="js/scripts/mainPage.js" type="module"></script>
 </body>
 
 </html>

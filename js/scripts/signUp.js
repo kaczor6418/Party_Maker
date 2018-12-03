@@ -1,9 +1,9 @@
 import {InteracitveElements} from "../helpers/InteracitveElements.js";
-import {registration} from "../widgets/registration.js";
+import {addInteraction} from "../widgets/addInteraction.js";
 
 (function () {
 
-    const index = new InteracitveElements(['form']);
-    registration(index.actionElements.forms[0]);
+    const signUp = new InteracitveElements(['form']);
+    addInteraction(signUp.actionElements.forms[0], 'signUp');
 
 })();

@@ -1,4 +1,4 @@
-import {createRegExp} from "./createRegExp.js";
+import {createRegExp} from "../utils/createRegExp.js";
 import {setInputStyle} from "./setStyle.js";
 import {regExpExpressions} from "../constantly/regExpExpressions.js";
 

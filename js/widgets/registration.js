@@ -1,4 +1,4 @@
-import {formValidation} from "../helpers/formValidation.js";
+import {validation} from "../helpers/validation.js";
 
 export function registration(signUpForm) {
 
@@ -6,7 +6,7 @@ export function registration(signUpForm) {
     const formType = 'signUp';
     signUpForm.addEventListener('submit', e => {
         e.preventDefault();
-        formValidation(inputFields, signUpForm, formType);
+        validation(inputFields, signUpForm, formType);
     }, false);
 
 }

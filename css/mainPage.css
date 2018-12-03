@@ -1,0 +1,43 @@
+.pageHeader {
+    box-shadow: none;
+}
+
+.inputText {
+    border-color: #dddddd;
+}
+
+.navigation {
+    box-sizing: border-box;
+    height: 79vh;
+    padding: 5rem 2rem 0rem 2rem;
+    background: #e8e9eb;
+    float: left;
+}
+
+.navigation__filter {
+    box-sizing: border-box;
+    padding-top: 5rem;
+}
+
+.events {
+    float: left;
+}
+
+.sort {
+    box-sizing: border-box;
+    position: fixed;
+    right: 5rem;
+    top: 22vh;
+    padding-top: 1rem;
+}
+
+.events__container--allEvents {
+    margin-top: 8rem;
+    overflow-y: scroll;
+}
+
+.event {
+    margin: 2rem;
+    background: #aebbf0;
+    width: 100%;
+}
