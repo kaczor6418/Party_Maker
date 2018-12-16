@@ -23,13 +23,20 @@
                 <img class="logo" src="img/png/logo.png">
             </a>
             <div class="pageHeader__panel--user">
-                <div class="user__avatar">
-                    <img class="user__avatar--photo" src="img/png/default avatar">
+                <div class="user__avatar"></div>
+                <i class="fas fa-cog fa-3x logout"></i>
+                <div class="user__options hidden">
+                    <ul>
+                        <li>Your profile</li>
+                        <li>Your Events</li>
+                        <li>Events calendar</li>
+                        <li><a href="logout.php">Logout</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </header>
-    <main>
+    <main class="mainPageWraper">
         <section class="navigation">
             <form action="index.php" method="post" class="search">
                 <label>Search for event:</label>
@@ -54,9 +61,9 @@
                                 <select class="inputText" name="category" id="category" tabindex="1"
                                         data-error="Choose category!" data-success="Correct category">
                                     <option class="select" value="" disabled selected>Category</option>
-                                    <option class="select" value="">option1</option>
-                                    <option class="select" value="">option2</option>
-                                    <option class="select" value="">option3</option>
+                                    <option class="select" value="0">option1</option>
+                                    <option class="select" value="1">option2</option>
+                                    <option class="select" value="2">option3</option>
                                 </select>
                             </td>
                         </tr>
@@ -114,43 +121,23 @@
         </section>
         <section class="events">
             <div class="events__container">
-                <form action="index.php" method="post" class="sort">
-                    <i title="Choose sorting mode" class="fas fa-info-circle informationAboutField sortInformation"></i>
-                    <select class="inputText" name="sort" id="sortBy"
-                            data-error="Choose sorting mode!" data-success="Correct sorting mode">
-                        <option class="select" value="" disabled selected>Sort by</option>
-                        <option class="select" value="Least popular">Least popular</option>
-                        <option class="select" value="Most popular">Most Popular</option>
-                        <option class="select" value="Latest Coming events">Latest coming events</option>
-                        <option class="select" value="Of latest coming events">Of latest coming events</option>
-                    </select>
-                    <label>
-                            <input class="sortButton button " name="sortButton" value="sort" aria-label="sort" type="submit">
-                    </label>
-                </form>
-                <div class="events__container--allEvents">
-                    <div class="event">
-                        <h3>Title</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Members</th>
-                                    <th>Category</th>
-                                    <th>Date</th>
-                                    <th>Localization</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>666</td>
-                                    <td>sex</td>
-                                    <td>30.02.1990</td>
-                                    <td>Death star</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="sort">
+                    <form action="index.php" method="post" class="form">
+                        <i title="Choose sorting mode" class="fas fa-info-circle informationAboutField sortInformation"></i>
+                        <select class="inputText" name="sort" id="sortBy"
+                                data-error="Choose sorting mode!" data-success="Correct sorting mode">
+                            <option class="select" value="" disabled selected>Sort by</option>
+                            <option class="select" value="0">Least popular</option>
+                            <option class="select" value="1">Most Popular</option>
+                            <option class="select" value="2">Latest coming events</option>
+                            <option class="select" value="3">Of latest coming events</option>
+                        </select>
+                        <label>
+                                <input class="sortButton button " name="sortButton" value="sort" aria-label="sort" type="submit">
+                        </label>
+                    </form>
                 </div>
+                <div class="events__container--allEvents"></div>
             </div>
         </section>
     </main>

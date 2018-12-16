@@ -6,12 +6,25 @@
     border-color: #dddddd;
 }
 
+.mainPageWraper {
+    display: flex;
+}
+
+.logout {
+    position: absolute;
+    right: 9.5%;
+    top: 57%;
+    color: #0f292f;
+    cursor: pointer;
+    z-index: 10;
+}
+
 .navigation {
+    flex: 1;
     box-sizing: border-box;
     height: 79vh;
     padding: 5rem 2rem 0rem 2rem;
     background: #e8e9eb;
-    float: left;
 }
 
 .navigation__filter {
@@ -20,24 +33,76 @@
 }
 
 .events {
-    float: left;
+    flex: 3.5;
 }
 
 .sort {
     box-sizing: border-box;
-    position: fixed;
-    right: 5rem;
+    position: absolute;
+    right: 5%;
     top: 22vh;
     padding-top: 1rem;
 }
 
 .events__container--allEvents {
-    margin-top: 8rem;
+    margin: 8rem 3rem 0rem 5rem;
+    max-height: 66vh;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .event {
+    box-sizing: border-box;
+    padding: 2rem;
     margin: 2rem;
     background: #aebbf0;
-    width: 100%;
+    border-radius: 1rem;
+}
+
+.event table {
+    margin-left: 4rem;
+    text-align: center;
+}
+
+.event table th,
+.event table td {
+    box-sizing: border-box;
+    padding-right: 2rem;
+}
+
+.user__avatar {
+    width: 15rem;
+    height: 15rem;
+    background: url("../img/svg/default_avatar.svg") no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    position: absolute;
+    right: 10%;
+    top: 10%;
+}
+
+.user__options {
+    opacity: 1;
+    width: 15rem;
+    height: 12rem;
+    border-radius: 2rem;
+    z-index: 1;
+    position: absolute;
+    top: 63%;
+    right: 11%;
+    background: #aebbf0;
+    color: #0f292f;
+    padding: 2rem;
+    box-shadow: -0.1em 0.9em 1.2em -0.8em rgba(0, 0, 0, 0.49);
+    transition: all 1s linear;
+}
+
+.user__options li {
+    border-bottom: 0.1rem solid #e8e9eb;
+    padding: 0.5rem 0rem;
+    cursor: pointer;
+}
+
+.user__options li:last-child {
+    border-bottom: none;
 }

@@ -17,12 +17,26 @@ a {
     color: inherit;
 }
 
+ul {
+    padding: 0;
+}
+
 li {
     list-style-type: none;
 }
 
 input {
     border: none;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.visible {
+    display: block;
+    opacity: 1;
 }
 
 .errorServer {

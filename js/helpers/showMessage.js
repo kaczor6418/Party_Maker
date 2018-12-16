@@ -25,9 +25,8 @@ export function showMessage(type, response) {
     parent.appendChild(divInfo);
 
     if('errorFields' in response[type]) {
-        const errorFields = response[type]['errorFields'].split(',');
         let inputField;
-        for(const fieldName of errorFields) {
+        for(const fieldName of response[type]['errorFields']) {
             inputField = document.querySelector(`#${fieldName}`);
             setInputStyle(inputField, type);
         }

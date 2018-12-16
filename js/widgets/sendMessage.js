@@ -18,14 +18,15 @@ export function sendMessage(inputFields, form, formType) {
         data: data,
         success: function (response) {
             response = `{ "success": {
-                            "info": "jest Ok",
                             "forPrinting": [
                                 {
+                                    "id": 1234,
                                     "name": "Ostro",
                                     "members": 666,
                                     "category": "sex",
                                     "date": "30.02.1990",
-                                    "localization": "deathStar"
+                                    "localization": "deathStar",
+                                    "picture": "ascacsaac"
                                 },
                                 {
                                     "name": "jebacPsY",

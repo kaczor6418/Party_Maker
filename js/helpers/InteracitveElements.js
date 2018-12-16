@@ -4,7 +4,11 @@ export class InteracitveElements {
 
         this.actionElements = {};
         elementsNames.forEach( elementName => {
-            this.actionElements[`${elementName}s`] = Array.from(document.querySelectorAll(elementName));
+            let keyName = elementName;
+            if(elementName.startsWith('.')){
+                keyName = elementName.replace(/\./, '');
+            }
+            this.actionElements[keyName] = Array.from(document.querySelectorAll(elementName));
         } );
 
     }
