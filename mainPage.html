@@ -38,12 +38,15 @@
     </header>
     <main class="mainPageWraper">
         <section class="navigation">
-            <form action="index.php" method="post" class="search">
+            <form action="index.php" method="post" class="searching">
                 <label>Search for event:</label>
                 <i title="Enter event name"
                    class="fas fa-info-circle informationAboutField searchInformation"></i>
-                <input class="inputText" name="search"  placeholder="Search..."
+                <input type="text" class="inputText" name="search" id="search"  placeholder="Search..."
                        data-error="This event is not exist!" data-success="This event is exist">
+                <label>
+                    <input class="sortButton button " name="sortButton" value="search" aria-label="search" type="submit">
+                </label>
             </form>
             <form action="index.php" method="post" class="filter">
                 <h4>Filter:</h4>
@@ -61,9 +64,10 @@
                                 <select class="inputText" name="category" id="category" tabindex="1"
                                         data-error="Choose category!" data-success="Correct category">
                                     <option class="select" value="" disabled selected>Category</option>
-                                    <option class="select" value="0">option1</option>
-                                    <option class="select" value="1">option2</option>
-                                    <option class="select" value="2">option3</option>
+                                    <option class="select" value="Sport">Sport</option>
+                                    <option class="select" value="Music">Music</option>
+                                    <option class="select" value="Party">Party</option>
+                                    <option class="select" value="Culture">Culture</option>
                                 </select>
                             </td>
                         </tr>
@@ -122,15 +126,14 @@
         <section class="events">
             <div class="events__container">
                 <div class="sort">
-                    <form action="index.php" method="post" class="form">
+                    <form action="index.php" method="post" class="sorting">
                         <i title="Choose sorting mode" class="fas fa-info-circle informationAboutField sortInformation"></i>
                         <select class="inputText" name="sort" id="sortBy"
                                 data-error="Choose sorting mode!" data-success="Correct sorting mode">
                             <option class="select" value="" disabled selected>Sort by</option>
-                            <option class="select" value="0">Least popular</option>
-                            <option class="select" value="1">Most Popular</option>
-                            <option class="select" value="2">Latest coming events</option>
-                            <option class="select" value="3">Of latest coming events</option>
+                            <option class="select" value="Least popular">Least popular</option>
+                            <option class="select" value="Most Popular">Most Popular</option>
+                            <option class="select" value="Latest coming events">Latest coming events</option>
                         </select>
                         <label>
                                 <input class="sortButton button " name="sortButton" value="sort" aria-label="sort" type="submit">

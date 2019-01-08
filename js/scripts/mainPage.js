@@ -24,7 +24,6 @@ import {AJAX} from "../libraries/Ajax.js";
 
 
     const mainPage = new InteracitveElements(['form','.logout']);
-    console.log(mainPage);
     mainPage.actionElements.form.forEach(form => {
         addFormInteraction(form, form.className);
     });

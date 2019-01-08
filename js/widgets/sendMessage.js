@@ -9,39 +9,20 @@ export function sendMessage(inputFields, form, formType) {
     }
     const data = {};
     inputFields.forEach(field => {
-        data[field.name] = field.value
+        data[field.name] = field.value;
     });
-    data[formType] = formType;
+    delete data[formType];
+    data['formName'] = formType;
+    console.log(data);
     AJAX({
         type: form.getAttribute('method'),
         url: form.getAttribute('action'),
         data: data,
         success: function (response) {
-            response = `{ "success": {
-                            "forPrinting": [
-                                {
-                                    "id": 1234,
-                                    "name": "Ostro",
-                                    "members": 666,
-                                    "category": "sex",
-                                    "date": "30.02.1990",
-                                    "localization": "deathStar",
-                                    "picture": "ascacsaac"
-                                },
-                                {
-                                    "name": "jebacPsY",
-                                    "members": 777,
-                                    "category": "orgia",
-                                    "date": "31.02.1990",
-                                    "localization": "ostreRuchansko"
-                                }
-                            ]
-                        }}`;
-            const res = JSON.parse(response);
+            /*const res = JSON.parse(response);
             if ('error' in res) {
                 showMessage('error', res );
             } else if ('success' in res) {
-                console.log(res['success']);
                 if('forPrinting' in res['success']) {
                     printEvents(res['success']['forPrinting']);
                 } else {
@@ -52,7 +33,7 @@ export function sendMessage(inputFields, form, formType) {
                         location.replace('/Party_Maker/mainPage.html');
                     });
                 }
-            }
+            }*/
         }
     });
     form.addEventListener('submit', sendMessage, false);
