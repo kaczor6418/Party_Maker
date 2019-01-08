@@ -13,13 +13,12 @@ export function sendMessage(inputFields, form, formType) {
     });
     delete data[formType];
     data['formName'] = formType;
-    console.log(data);
     AJAX({
         type: form.getAttribute('method'),
         url: form.getAttribute('action'),
         data: data,
         success: function (response) {
-            /*const res = JSON.parse(response);
+            const res = JSON.parse(response);
             if ('error' in res) {
                 showMessage('error', res );
             } else if ('success' in res) {
@@ -33,7 +32,7 @@ export function sendMessage(inputFields, form, formType) {
                         location.replace('/Party_Maker/mainPage.html');
                     });
                 }
-            }*/
+            }
         }
     });
     form.addEventListener('submit', sendMessage, false);
