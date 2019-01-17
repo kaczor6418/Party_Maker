@@ -312,3 +312,17 @@ input {
 .footer__block--socialMedia td {
     padding: 1.5rem;
 }
+
+.center-vertical-inside {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-horizontal {
+    margin: 0 auto;
+}
+
+.circle {
+    border-radius: 50%;
+}

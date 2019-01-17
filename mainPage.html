@@ -29,7 +29,6 @@
                     <ul>
                         <li>Your profile</li>
                         <li>Your Events</li>
-                        <li>Events calendar</li>
                         <li><a href="logout.php">Logout</a></li>
                     </ul>
                 </div>
@@ -38,7 +37,7 @@
     </header>
     <main class="mainPageWraper">
         <section class="navigation">
-            <form action="index.php" method="post" class="searching">
+            <form action="module.php" method="post" class="searching">
                 <label>Search for event:</label>
                 <i title="Enter event name"
                    class="fas fa-info-circle informationAboutField searchInformation"></i>
@@ -48,7 +47,7 @@
                     <input class="sortButton button " name="sortButton" value="search" aria-label="search" type="submit">
                 </label>
             </form>
-            <form action="index.php" method="post" class="filter">
+            <form action="module.php" method="post" class="filter">
                 <h4>Filter:</h4>
                 <table>
                     <tbody>
@@ -122,11 +121,16 @@
                     </tbody>
                 </table>
             </form>
+            <div class="goEvents center-vertical-inside center-horizontal">
+                <div class="eventBtn circle center-vertical-inside">
+                    <h3 class="center-vertical-inside center-horizontal" >My events</h3>
+                </div>
+            </div>
         </section>
         <section class="events">
             <div class="events__container">
                 <div class="sort">
-                    <form action="index.php" method="post" class="sorting">
+                    <form action="module.php" method="post" class="sorting">
                         <i title="Choose sorting mode" class="fas fa-info-circle informationAboutField sortInformation"></i>
                         <select class="inputText" name="sort" id="sortBy"
                                 data-error="Choose sorting mode!" data-success="Correct sorting mode">

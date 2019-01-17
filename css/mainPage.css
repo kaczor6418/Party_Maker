@@ -106,3 +106,20 @@
 .user__options li:last-child {
     border-bottom: none;
 }
+
+.goEvents {
+    width: 100%;
+}
+
+.eventBtn {
+    cursor: pointer;
+    width: 12rem;
+    height: 12rem;
+    background: #bac9ff;
+    box-shadow: -0.1em 0.9em 1.2em -0.8em rgba(0, 0, 0, 0.49);
+    transition: all 1s linear;
+}
+
+.eventBtn:hover {
+    background: #878dbd;
+}
