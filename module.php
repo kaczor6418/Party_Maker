@@ -24,7 +24,7 @@ if(isset($_POST["username2"]))
 }
 
 if(isset($_POST["info"]))
-	$event->getEvents(null);
+	$event->getEvents();
 
 if(isset($_POST["category"])) // && $_POST["formName"] == "filter"
 	$event->getEvents($_POST);
@@ -38,7 +38,7 @@ if(isset($_POST["sort"])) // && $_POST["formName"] == "sorting"
 if(isset($_POST["profile"]))
 {
 	$profile = $user->data();
-	echo json_encode(array(
+	echo json_encode(array('success' => array('fields' => array(
 		array('name' => 'login', 'value' => $profile["login"]),
 		array('name' => 'name', 'value' => $profile["name"]),
 		array('name' => 'surname', 'value' => $profile["surname"]),
@@ -49,8 +49,16 @@ if(isset($_POST["profile"]))
 		array('name' => 'lastActive', 'value' => $profile["lastActive"]),
 		array('name' => 'email', 'value' => $profile["email"]),
 		array('name' => 'Adress IP', 'value' => $profile["ip"])
-		));
+		))));
 }
+
+if(isset($_POST["userEvents"]))
+	$event->getEventByCreator();
+
+if(isset($_POST["eventInfo"]))
+	$event->getEventInfo($_POST["eventInfo"]);
+
+
 
 /*$category = array("Sport", "Music", "Party", "Culture");
 $name = array("Sylwester", "Choinka", "Urodziny", "Widzew vs ŁKS", "LECH vs LEGIA", "Koncert Metalica", "Koncert ACDC", "Koncert AlterBridge");

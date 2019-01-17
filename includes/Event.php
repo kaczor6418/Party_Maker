@@ -34,7 +34,7 @@ class Event
         	}
         }
 		
-    	$statement = $this->connect->prepare('SELECT event_id, event_name, event_description, event_date, event_location, event_logo FROM events WHERE creator_id = ?');
+    	$statement = $this->connect->prepare('SELECT event_id, event_name, event_description, event_date, event_category, event_location, event_logo FROM events WHERE creator_id = ?');
 		$statement->bind_param('i', $idEventCreator);
 		$statement->execute();
 		$result = $statement->get_result();
@@ -51,7 +51,7 @@ class Event
 			array_push($return_arr, $row_array);
 		}
 
-		echo json_encode(array('success' => array('forPrinting'  => $return_arr)));
+		echo json_encode(array('success' => array('clear' => false, 'forPrinting'  => $return_arr)));
 	}
 
 	public function eventsParticipate($idParticipate = null)
@@ -140,6 +140,23 @@ class Event
 
 		echo json_encode(array('success' => array('clear' => true, 'forPrinting'  => $return_arr)));
 	}	
+	
+	public function getEventInfo($idEvent)
+	{		
+		$statement = $this->connect->prepare("SELECT * FROM events WHERE event_id = ?");
+		$statement->bind_param('i', $idEvent);
+		$statement->execute();
+		$result = $statement->get_result();
+		$row = $result->fetch_assoc();
+		$row_array['location'] = $row['event_location'];
+		echo json_encode(array('success' => array('fields' => array(
+		array('name' => 'name', 'value' => $row['event_name']),
+		array('name' => 'members', 'value' => $this->getNumberOfParticipants($row['event_id'])["value"]),
+		array('name' => 'event_category', 'value' => $row['event_category']),
+		array('name' => 'event_date', 'value' => $row['event_date']),
+		array('name' => 'event_location', 'value' => $row['event_location'])
+		), 'eventDescription' => $row['event_description'])));
+	}
 	
 	public function getEvents($data)
 	{
