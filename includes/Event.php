@@ -56,6 +56,8 @@ class Event
 
 	public function eventsParticipate($idParticipate = null)
 	{
+		$return_arr = array();
+
 		if($idParticipate == null)
 		{
 			if(isset($_SESSION['user_id']))
@@ -67,16 +69,26 @@ class Event
 				die("Użytkownik nie jest zalogowany!");
 			}
 		}
-		$statement = $this->connect->prepare('select ev.event_id, ev.event_name, ev.event_description, ev.event_date, ev.event_location, ev.event_logo from events ev join events_participants p on ev.event_id = p.event_id where p.participant_id = ?');
+		$statement = $this->connect->prepare('select ev.event_id, ev.event_name, ev.event_category, ev.event_description, ev.event_date, ev.event_location, ev.event_logo from events ev join events_participants p on ev.event_id = p.event_id where p.participant_id = ?');
 		$statement->bind_param('i', $idParticipate);
-		if($statement->execute())
+		$statement->execute();
+		$result = $statement->get_result();
+		while ($row = $result->fetch_assoc()) 
 		{
-			$result = $statement->get_result();
-			return $result->fetch_assoc();
+			$row_array['id'] = $row['event_id'];
+			$row_array['picture'] = $row['event_logo'];
+			$row_array['name'] = $row['event_name'];
+			$row_array['members'] = $this->getNumberOfParticipants($row['event_id'])["value"];
+			$row_array['category'] = $row['event_category'];
+			$row_array['date'] = $row['event_date'];
+			$row_array['location'] = $row['event_location'];
+			array_push($return_arr, $row_array);
 		}
+
+		echo json_encode(array('success' => array('clear' => false, 'forPrinting'  => $return_arr)));
 	}
 
-	public function getUpcomingEvents()
+	/*public function getUpcomingEvents()
 	{
 		$statement = $this->connect->prepare('SELECT event_id, event_name, event_description, event_date, event_location, event_logo FROM events WHERE dateEvent >= NOW() AND dateEvent <= DATE_ADD(NOW(), INTERVAL 7 DAY)');
 		//SELECT * FROM `users` WHERE birthDate >= NOW() AND birthDate <= DATE_ADD(NOW(), INTERVAL 10 DAY);
@@ -85,7 +97,7 @@ class Event
 			$result = $statement->get_result();
 			return $result->fetch_assoc();
 		}
-	}
+	}*/
 	
 	public function searchEvent($name)
 	{
@@ -210,7 +222,7 @@ class Event
 		}
 	}
 
-	public function getPostsByCreator($idCreator = null)
+	/*public function getPostsByCreator($idCreator = null)
 	{
 		if($idCreator == null)
 		{
@@ -255,29 +267,22 @@ class Event
 			return $result->fetch_assoc();
 		}
 	}
-	
+	*/
 	public function getEventParticipants($event_id)
 	{
-		$statement = $this->connect->prepare('SELECT event_name, event_date, event_description FROM events WHERE event_id = ?');
+		$return_arr = array();
+		$statement = $this->connect->prepare('select ev.event_name, us.name, us.surname from events_participants p join events ev on ev.event_id = p.event_id join users us on p.participant_id = us.user_id where ev.event_id = ?');
 		$statement->bind_param('i', $event_id);
-		if($statement->execute())
+		$statement->execute();
+		$result = $statement->get_result();
+		while ($row = $result->fetch_assoc()) 
 		{
-			$result = $statement->get_result();
-			if(!$result->num_rows)
-			{
-				return 'bad event_id';
-			}
-			else
-			{
-				$statement = $this->connect->prepare('select ev.event_name, us.name, us.surname from events_participants p join events ev on ev.event_id = p.event_id join users us on p.participant_id = us.user_id where ev.event_id = ?');
-				if($statement->execute())
-				{
-					$result = $statement->get_result();
-					$rows = resultToArray($result);
-					return $rows;
-				}
-			}
+			$row_array['name'] = $row['name'];
+			$row_array['usurname'] = $row['surname'];
+			array_push($return_arr, $row_array);
 		}
+
+		echo json_encode(array('success' => array('forPrinting'  => $return_arr)));
 	}
 	//getNeighbourhoodEvent, createEvent, createPost, createComment
 }

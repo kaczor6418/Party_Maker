@@ -58,7 +58,11 @@ if(isset($_POST["userEvents"]))
 if(isset($_POST["eventInfo"]))
 	$event->getEventInfo($_POST["eventInfo"]);
 
+if(isset($_POST["eventsParticipate"])) //nieużywana? W KTÓRYCH EVENTACH BIORĘ UDZIAŁ
+	$event->eventsParticipate($_POST["eventsParticipate"]);
 
+if(isset($_POST["eventParticipates"])) //nieużywana? KTO BIERZE UDZIAŁ W WYDARZENIU
+	$event->getEventParticipants($_POST["eventParticipates"]);
 
 /*$category = array("Sport", "Music", "Party", "Culture");
 $name = array("Sylwester", "Choinka", "Urodziny", "Widzew vs ŁKS", "LECH vs LEGIA", "Koncert Metalica", "Koncert ACDC", "Koncert AlterBridge");
