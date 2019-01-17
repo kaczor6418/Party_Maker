@@ -8,7 +8,6 @@ if($connect->connect_errno)
 }
 $connect->set_charset("utf8");
 
-
 require "User.php";
 require "Event.php";
 $user = new User($connect);

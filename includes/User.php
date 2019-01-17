@@ -32,7 +32,7 @@ class User
         		die("Użytkownik nie jest zalogowany!");
         	}
         }
-    	$statement = $this->connect->prepare('SELECT user_id, login, name, surname, birthDate, regDate, lastSuccessfulLogin, attempts, lastUnsuccessfulLogin, lastActive, email FROM users WHERE user_id = ?');
+    	$statement = $this->connect->prepare('SELECT user_id, login, name, surname, birthDate, regDate, lastSuccessfulLogin, attempts, lastUnsuccessfulLogin, lastActive, email, ip FROM users WHERE user_id = ?');
 		$statement->bind_param('i', $idUserToGet);
 		if($statement->execute())
 		{
@@ -45,7 +45,7 @@ class User
 	{
 		return isset($_SESSION["user_id"]);
 	}
-
+	
 	public function signUp($name, $surname, $email, $birth, $username, $password)
 	{
 		$errorObjString = array();
@@ -123,7 +123,7 @@ class User
 					else
 					{
 						//INSERT INTO `users` (`user_id`, `login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `lastSuccessfulLogin`, `attempts`, `lastUnsuccessfulLogin`, `lastActive`) VALUES (NULL, 'test', 'test', 'test', 'test', 'test', '', '', '', '', '');
-						$statement = $this->connect->prepare("INSERT INTO `users` (`login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `email`, `ip`) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%m/%d/%Y'), NOW(), ?, ?)");
+						$statement = $this->connect->prepare("INSERT INTO `users` (`login`, `password`, `name`, `surname`, `birthDate`, `regDate`, `email`, `ip`) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%d/%m/%Y'), NOW(), ?, ?)");
 						$passhash = password_hash($password, PASSWORD_DEFAULT);
 						$ip_address = $_SERVER['REMOTE_ADDR'];
 						$statement->bind_param('sssssss', $username, $passhash, $name, $surname, $birth, $email, $ip_address);

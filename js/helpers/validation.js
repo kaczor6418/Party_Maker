@@ -1,9 +1,9 @@
 import {isSth} from "./isSth.js";
-import {sendMessage} from "./sendMessage.js";
+import {sendMessage} from "../widgets/sendMessage.js";
 
-export function formValidation(inputFields, form, formType) {
+export function validation(inputFields, form, formType) {
 
-    const errors = [];
+    let errors = [];
 
     inputFields.forEach(inputField => {
 
@@ -15,6 +15,11 @@ export function formValidation(inputFields, form, formType) {
         }
 
     });
+
+    if(formType === 'filter' && errors.length < inputFields.length) {
+        errors = [];
+    }
+
     if(errors.length) {
         //displayErrors(errors); for example we can show errors in console
     } else {

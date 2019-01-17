@@ -8,7 +8,7 @@ function resultToArray($result)
     }
     return $rows;
 }
-
+	
 class Event
 {
 	private $connect;
@@ -20,6 +20,8 @@ class Event
 
 	public function getEventByCreator($idEventCreator = null)
 	{
+		$return_arr = array();
+		
 		if($idEventCreator == null)
         {
         	if(isset($_SESSION['user_id']))
@@ -34,11 +36,22 @@ class Event
 		
     	$statement = $this->connect->prepare('SELECT event_id, event_name, event_description, event_date, event_location, event_logo FROM events WHERE creator_id = ?');
 		$statement->bind_param('i', $idEventCreator);
-		if($statement->execute())
+		$statement->execute();
+		$result = $statement->get_result();
+		
+		while ($row = $result->fetch_assoc()) 
 		{
-			$result = $statement->get_result();
-			return $result->fetch_assoc();
+			$row_array['id'] = $row['event_id'];
+			$row_array['picture'] = $row['event_logo'];
+			$row_array['name'] = $row['event_name'];
+			$row_array['members'] = $this->getNumberOfParticipants($row['event_id'])["value"];
+			$row_array['category'] = $row['event_category'];
+			$row_array['date'] = $row['event_date'];
+			$row_array['location'] = $row['event_location'];
+			array_push($return_arr, $row_array);
 		}
+
+		echo json_encode(array('success' => array('forPrinting'  => $return_arr)));
 	}
 
 	public function eventsParticipate($idParticipate = null)
@@ -67,6 +80,112 @@ class Event
 	{
 		$statement = $this->connect->prepare('SELECT event_id, event_name, event_description, event_date, event_location, event_logo FROM events WHERE dateEvent >= NOW() AND dateEvent <= DATE_ADD(NOW(), INTERVAL 7 DAY)');
 		//SELECT * FROM `users` WHERE birthDate >= NOW() AND birthDate <= DATE_ADD(NOW(), INTERVAL 10 DAY);
+		if($statement->execute())
+		{
+			$result = $statement->get_result();
+			return $result->fetch_assoc();
+		}
+	}
+	
+	public function searchEvent($name)
+	{
+		$return_arr = array();
+		$statement = $this->connect->prepare("SELECT * FROM events WHERE event_name LIKE '%".$name."%'");
+		$statement->execute();
+		$result = $statement->get_result();
+
+		while ($row = $result->fetch_assoc()) 
+		{
+			$row_array['id'] = $row['event_id'];
+			$row_array['picture'] = $row['event_logo'];
+			$row_array['name'] = $row['event_name'];
+			$row_array['members'] = $this->getNumberOfParticipants($row['event_id'])["value"];
+			$row_array['category'] = $row['event_category'];
+			$row_array['date'] = $row['event_date'];
+			$row_array['location'] = $row['event_location'];
+			array_push($return_arr, $row_array);
+		}
+		echo json_encode(array('success' => array('clear' => true, 'forPrinting'  => $return_arr)));
+	}
+	
+	/*
+	Least popular, Most Popular, Latest coming events, Of latest coming events
+	*/
+	
+	public function sortEvents($data)
+	{
+		$return_arr = array();
+		
+		switch($data)
+		{
+			case "Least popular": $statement = $this->connect->prepare('select event_id, creator_id, event_name, event_description, event_date, event_location, event_logo, event_category, min_age from ( select e.event_id id, count(info_id) cnt from events e left join events_participants ep on e.event_id = ep.event_id group by e.event_id) t1 join (select * from events) t2 where t1.id = t2.event_id order by cnt'); break;
+			case "Most Popular": $statement = $this->connect->prepare('select event_id, creator_id, event_name, event_description, event_date, event_location, event_logo, event_category, min_age from (select e.event_id as id, count(info_id) cnt from events e left join events_participants ep on e.event_id = ep.event_id group by e.event_id) t1, (select * from events) t2 where t1.id = t2.event_id order by cnt desc'); break;
+			case "Latest coming events": $statement = $this->connect->prepare('select * from events WHERE event_date >= NOW() order by event_date asc'); break; //TODO: add column event_category, min_age
+		}
+		
+		$statement->execute();
+		$result = $statement->get_result();
+
+		while ($row = $result->fetch_assoc()) 
+		{
+			$row_array['id'] = $row['event_id'];
+			$row_array['picture'] = $row['event_logo'];
+			$row_array['name'] = $row['event_name'];
+			$row_array['members'] = $this->getNumberOfParticipants($row['event_id'])["value"];
+			$row_array['category'] = $row['event_category'];
+			$row_array['date'] = $row['event_date'];
+			$row_array['location'] = $row['event_location'];
+			array_push($return_arr, $row_array);
+		}
+
+		echo json_encode(array('success' => array('clear' => true, 'forPrinting'  => $return_arr)));
+	}	
+	
+	public function getEvents($data)
+	{
+		$whereClause = array();
+		$return_arr = array();
+		
+		if(!empty($data["localization"]))
+			$whereClause[] = "event_location LIKE '%".$data["localization"]."%'";
+		
+		if(!empty($data["category"]))
+			$whereClause[] = "event_category = '".$data["category"]."'";
+		
+		if(!empty($data["age"]))
+			$whereClause[] = "min_age <= ".$data["age"];
+		
+		if(!empty($data["date"]))
+			$whereClause[] = "event_date = STR_TO_DATE('".$data["date"]."', '%d/%m/%Y')";
+		
+		$finalClause = implode(" AND ", $whereClause);
+		
+		if(!empty($finalClause))
+			$statement = $this->connect->prepare('SELECT * FROM events WHERE '.$finalClause);
+		else
+			$statement = $this->connect->prepare('SELECT * FROM events');
+		
+		$statement->execute();
+		$result = $statement->get_result();
+		
+		while ($row = $result->fetch_assoc()) 
+		{
+			$row_array['id'] = $row['event_id'];
+			$row_array['picture'] = $row['event_logo'];
+			$row_array['name'] = $row['event_name'];
+			$row_array['members'] = $this->getNumberOfParticipants($row['event_id'])["value"];
+			$row_array['category'] = $row['event_category'];
+			$row_array['date'] = $row['event_date'];
+			$row_array['location'] = $row['event_location'];
+			array_push($return_arr, $row_array);
+		}
+		echo json_encode(array('success' => array('clear' => true, 'forPrinting'  => $return_arr)));
+	}
+	
+	public function getNumberOfParticipants($event_id)
+	{
+		$statement = $this->connect->prepare('select count(*) value from events e join events_participants ep on ep.event_id = e.event_id WHERE e.event_id = ?');
+		$statement->bind_param('i', $event_id);
 		if($statement->execute())
 		{
 			$result = $statement->get_result();

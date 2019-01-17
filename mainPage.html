@@ -23,111 +23,132 @@
                 <img class="logo" src="img/png/logo.png">
             </a>
             <div class="pageHeader__panel--user">
-                <div class="user__avatar">
-                    <img class="user__avatar--photo" src="img/png/default avatar">
+                <div class="user__avatar"></div>
+                <i class="fas fa-cog fa-3x logout"></i>
+                <div class="user__options hidden">
+                    <ul>
+                        <li>Your profile</li>
+                        <li>Your Events</li>
+                        <li><a href="logout.php">Logout</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </header>
-    <main>
+    <main class="mainPageWraper">
         <section class="navigation">
-            <div class="navigation__search">
+            <form action="module.php" method="post" class="searching">
                 <label>Search for event:</label>
-                <input class="inputText" name="search"  placeholder="Search..." data-error="This event is not exist!">
-            </div>
-            <div class="navigation__filter">
+                <i title="Enter event name"
+                   class="fas fa-info-circle informationAboutField searchInformation"></i>
+                <input type="text" class="inputText" name="search" id="search"  placeholder="Search..."
+                       data-error="This event is not exist!" data-success="This event is exist">
+                <label>
+                    <input class="sortButton button " name="sortButton" value="search" aria-label="search" type="submit">
+                </label>
+            </form>
+            <form action="module.php" method="post" class="filter">
                 <h4>Filter:</h4>
                 <table>
                     <tbody>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
                                 <label>Category</label>
+                                <i title="Enter your password"
+                                   class="fas fa-info-circle informationAboutField categoryInformation"></i>
                             </td>
                         </tr>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
-                                <select class="inputText" name="category" id="category" tabindex="1" data-error="Choose category!">
+                                <select class="inputText" name="category" id="category" tabindex="1"
+                                        data-error="Choose category!" data-success="Correct category">
                                     <option class="select" value="" disabled selected>Category</option>
-                                    <option class="select" value="">option1</option>
-                                    <option class="select" value="">option2</option>
-                                    <option class="select" value="">option3</option>
+                                    <option class="select" value="Sport">Sport</option>
+                                    <option class="select" value="Music">Music</option>
+                                    <option class="select" value="Party">Party</option>
+                                    <option class="select" value="Culture">Culture</option>
                                 </select>
                             </td>
                         </tr>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
                                 <label>Localization</label>
+                                <i title="Enter your password"
+                                   class="fas fa-info-circle informationAboutField localizationInformation"></i>
                             </td>
                         </tr>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
-                                <input type="text" class="inputText" name="localization" id="localization" tabindex="2" data-error="Incorrect localization!">
+                                <input type="text" class="inputText" name="localization" id="localization" tabindex="2"
+                                       data-error="Incorrect localization!" data-success="Correct localization">
                             </td>
                         </tr>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
                                 <label>Age</label>
+                                <i title="Enter your password"
+                                   class="fas fa-info-circle informationAboutField ageInformation"></i>
                             </td>
                         </tr>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
-                                <input type="text" class="inputText" name="age" id="age" tabindex="3" data-error="Incorrect age!">
+                                <input type="text" class="inputText" name="age" id="age" tabindex="3"
+                                       data-error="Incorrect age!" data-success="Correct age">
                             </td>
                         </tr>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
                                 <label>Date</label>
+                                <i title="Enter your password"
+                                   class="fas fa-info-circle informationAboutField dateInformation"></i>
                             </td>
                         </tr>
                         <tr class="navigation__filter--fields row">
                             <td class="field">
-                                <input type="text" class="inputText" name="date" id="date" tabindex="4" data-error="Choose date!">
+                                <input type="text" class="inputText" name="date" id="date" tabindex="4"
+                                       data-error="Choose date!" data-success="Correct date">
+                            </td>
+                        </tr>
+                        <tr class="navigation__filter--fields row">
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <label>
+                                    <input class="filterButton button " name="filterButton" value="filter" aria-label="filter" type="submit">
+                                </label>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+            </form>
+            <div class="goEvents center-vertical-inside center-horizontal">
+                <div class="eventBtn circle center-vertical-inside">
+                    <h3 class="center-vertical-inside center-horizontal" >My events</h3>
+                </div>
             </div>
         </section>
         <section class="events">
             <div class="events__container">
-                <div class="events__container--sortBy">
-                    <select class="inputText" name="sortBy" id="sortBy" data-error="Choose category!">
-                        <option class="select" value="" disabled selected>Sort by</option>
-                        <option class="select" value="Least popular">Least popular</option>
-                        <option class="select" value="Most popular">Most Popular</option>
-                        <option class="select" value="Latest Coming events">Latest coming events</option>
-                        <option class="select" value="Of latest coming events">Of latest coming events</option>
-                    </select>
-                    <label>
-                            <input class="sortButton button " name="sortButton" value="sort" aria-label="sort" type="submit">
-                    </label>
+                <div class="sort">
+                    <form action="module.php" method="post" class="sorting">
+                        <i title="Choose sorting mode" class="fas fa-info-circle informationAboutField sortInformation"></i>
+                        <select class="inputText" name="sort" id="sortBy"
+                                data-error="Choose sorting mode!" data-success="Correct sorting mode">
+                            <option class="select" value="" disabled selected>Sort by</option>
+                            <option class="select" value="Least popular">Least popular</option>
+                            <option class="select" value="Most Popular">Most Popular</option>
+                            <option class="select" value="Latest coming events">Latest coming events</option>
+                        </select>
+                        <label>
+                                <input class="sortButton button " name="sortButton" value="sort" aria-label="sort" type="submit">
+                        </label>
+                    </form>
                 </div>
-                <div class="events__container--allEvents">
-                    <div class="event">
-                        <h3>Title</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Members</th>
-                                    <th>Category</th>
-                                    <th>Date</th>
-                                    <th>Localization</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>666</td>
-                                    <td>sex</td>
-                                    <td>30.02.1990</td>
-                                    <td>Death star</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <div class="events__container--allEvents"></div>
             </div>
         </section>
     </main>
+    <script src="js/scripts/mainPage.js" type="module"></script>
 </body>
 
 </html>
