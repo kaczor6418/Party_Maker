@@ -50,8 +50,7 @@ class Event
 			$row_array['location'] = $row['event_location'];
 			array_push($return_arr, $row_array);
 		}
-
-		echo json_encode(array('success' => array('clear' => false, 'forPrinting'  => $return_arr)));
+		return $return_arr;
 	}
 
 	public function eventsParticipate($idParticipate = null)

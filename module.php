@@ -49,11 +49,11 @@ if(isset($_POST["profile"]))
 		array('name' => 'lastActive', 'value' => $profile["lastActive"]),
 		array('name' => 'email', 'value' => $profile["email"]),
 		array('name' => 'Adress IP', 'value' => $profile["ip"])
-		))));
+		), 'events' => $event->getEventByCreator())));
 }
 
 if(isset($_POST["userEvents"]))
-	$event->getEventByCreator();
+	echo json_encode(array('success' => array('clear' => false, 'forPrinting'  => $event->getEventByCreator())));
 
 if(isset($_POST["eventInfo"]))
 	$event->getEventInfo($_POST["eventInfo"]);
