@@ -1,0 +1,51 @@
+.mainBackground {
+    height: 100vh;
+    background: url("../img/jpg/signUp.jpg") no-repeat;
+    background-size: cover;
+}
+
+.field {
+    padding-bottom: 5rem;
+}
+
+.mainField label {
+    position: relative;
+    display: flex;
+}
+
+.button {
+    float: right;
+}
+
+.signUp {
+    width: 60%;
+    background: #d47475;
+    height: 70%;
+    margin: 0rem auto 15rem;
+    box-shadow: 0rem 0rem 3rem 3rem rgba(212,116,117,1);
+}
+
+.signUp__wrap {
+    position: absolute;
+    box-sizing: border-box;
+    max-height: inherit;
+    width: inherit;
+    font-size: 2rem;
+    color: #ffffff;
+    text-align: center;
+}
+
+.signUp__form {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 4rem;
+    margin: 0 auto;
+}
+
+.signUpButton:hover {
+    background: #aebbf0;
+}
+
+.logo {
+    max-width: 20%;
+}
